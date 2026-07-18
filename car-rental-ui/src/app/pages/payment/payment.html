@@ -27,7 +27,7 @@
     <h2>Payment</h2>
 
     <div class="checkout-summary">
-      <img *ngIf="c.images && c.images.length" [src]="'http://localhost:8080' + c.images[0]" alt="{{ c.brand }} {{ c.model }}">
+      <img *ngIf="c.images && c.images.length" [src]="'http://159.69.122.189:8080' + c.images[0]" alt="{{ c.brand }} {{ c.model }}">
       <div>
         <h3>{{ c.brand }} {{ c.model }}</h3>
         <p class="muted">{{ startDate }} → {{ endDate }}</p>

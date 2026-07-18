@@ -19,7 +19,7 @@ export class Booking implements OnInit {
 
   car?: Car;
   carId!: number;
-  imageBaseUrl = 'http://localhost:8080';
+  imageBaseUrl = 'http://159.69.122.189:8080';
 
   loading = true;
   loadError = '';

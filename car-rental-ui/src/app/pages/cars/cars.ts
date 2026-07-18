@@ -20,7 +20,7 @@ import { ARMENIA_REGIONS, ArmeniaRegion, buildLocation } from '../../core/armeni
 export class CarsComponent implements OnInit {
 
   cars: Car[] = [];
-  imageBaseUrl = 'http://localhost:8080';
+  imageBaseUrl = 'http://159.69.122.189:8080';
   unread = 0;
 
   page = 0;

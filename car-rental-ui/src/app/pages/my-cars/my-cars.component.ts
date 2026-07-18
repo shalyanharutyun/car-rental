@@ -17,7 +17,7 @@ import { LogoComponent } from '../../shared/logo/logo.component';
 export class MyCarsComponent implements OnInit {
 
   cars$!: Observable<Car[]>;
-  imageBaseUrl = 'http://localhost:8080';
+  imageBaseUrl = 'http://159.69.122.189:8080';
 
   constructor(private carService: CarService, private cdr: ChangeDetectorRef) {}
 

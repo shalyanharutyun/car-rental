@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AuthService {
 
-  private baseUrl = 'http://localhost:8080/auth';
+  private baseUrl = 'http://159.69.122.189:8080/auth';
 
   readonly googleLoginUrl = 'http://localhost:8083/oauth2/authorization/google';
 
