@@ -1,0 +1,27 @@
+<header class="app-header">
+  <app-logo></app-logo>
+  <div class="header-actions">
+    <a class="nav-pill nav-pill-solid" routerLink="/cars/add">+ Add Car</a>
+    <a class="nav-pill" routerLink="/cars">Available Cars</a>
+    <app-theme-toggle></app-theme-toggle>
+    <app-account-menu></app-account-menu>
+  </div>
+</header>
+
+<div class="cars-page">
+  <h2>My Cars</h2>
+
+  <ng-container *ngIf="cars$ | async as cars">
+    <div class="cars-grid">
+      <div class="car-card" *ngFor="let car of cars">
+        <img *ngIf="car.images && car.images.length" [src]="imageBaseUrl + car.images[0]" alt="{{ car.brand }} {{ car.model }}">
+        <h3>{{ car.brand }} {{ car.model }}</h3>
+        <p class="car-year">{{ car.year }}</p>
+        <p class="car-price">{{ car.price }} {{ car.currency }} / {{ periodLabel(car) }}</p>
+        <button class="btn-logout" (click)="deleteCar(car, $event)">Delete</button>
+      </div>
+    </div>
+
+    <p *ngIf="cars.length === 0">You have no cars yet.</p>
+  </ng-container>
+</div>

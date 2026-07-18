@@ -1,0 +1,92 @@
+<header class="app-header">
+  <app-logo></app-logo>
+  <div class="header-actions">
+    <button type="button" class="nav-pill" (click)="whyChoose.show()">Why choose MyRide</button>
+    <ng-container *ngIf="isLoggedIn">
+      <a class="bell" routerLink="/notifications" title="Notifications">
+        🔔
+        <span class="bell-badge" *ngIf="unread > 0">{{ unread }}</span>
+      </a>
+      <a class="nav-pill" routerLink="/cars/mine">My Cars</a>
+    </ng-container>
+    <a class="nav-pill nav-pill-solid" routerLink="/cars/add">+ Add Car</a>
+    <app-theme-toggle></app-theme-toggle>
+    <app-account-menu></app-account-menu>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <h1 class="hero-title">Find your perfect ride</h1>
+    <p class="hero-subtitle">Hundreds of cars across Armenia. Book in minutes, drive in style.</p>
+  </div>
+</section>
+
+<div class="cars-page">
+  <div class="filter-bar filter-bar-floating">
+    <div class="filter-field">
+      <label for="filterYearFrom">Year from</label>
+      <select id="filterYearFrom" [(ngModel)]="filterYearFrom" (ngModelChange)="applyFilters()">
+        <option [ngValue]="null">Any</option>
+        <option *ngFor="let y of years" [ngValue]="y">{{ y }}</option>
+      </select>
+    </div>
+
+    <div class="filter-field">
+      <label for="filterYearTo">Year to</label>
+      <select id="filterYearTo" [(ngModel)]="filterYearTo" (ngModelChange)="applyFilters()">
+        <option [ngValue]="null">Any</option>
+        <option *ngFor="let y of years" [ngValue]="y">{{ y }}</option>
+      </select>
+    </div>
+
+    <div class="filter-field">
+      <label for="filterRegion">Region</label>
+      <select id="filterRegion" [(ngModel)]="filterRegion" (ngModelChange)="onFilterRegionChange()">
+        <option value="">All regions</option>
+        <option *ngFor="let r of regions" [value]="r.name">{{ r.name }}</option>
+      </select>
+    </div>
+
+    <div class="filter-field" *ngIf="selectedFilterRegion?.districts?.length">
+      <label for="filterDistrict">City / Village</label>
+      <select id="filterDistrict" [(ngModel)]="filterDistrict" (ngModelChange)="applyFilters()">
+        <option value="">All cities / villages</option>
+        <option *ngFor="let d of selectedFilterRegion?.districts" [value]="d">{{ d }}</option>
+      </select>
+    </div>
+
+    <button type="button" class="filter-clear" (click)="clearFilters()">Clear filters</button>
+  </div>
+
+  <h2 class="section-heading">Available Cars</h2>
+
+  <div class="cars-grid">
+    <a class="car-card" *ngFor="let car of cars" [routerLink]="['/cars', car.id]">
+      <div class="car-thumb">
+        <img *ngIf="car.images && car.images.length" [src]="imageBaseUrl + car.images[0]" alt="{{ car.brand }} {{ car.model }}">
+        <span class="status-badge available" *ngIf="car.available !== false">Available</span>
+        <span class="status-badge rented" *ngIf="car.available === false">Rented</span>
+      </div>
+      <h3>{{ car.brand }} {{ car.model }}</h3>
+      <p class="car-year">{{ car.year }}</p>
+      <p class="car-price">{{ car.price }} {{ car.currency }} / {{ periodLabel(car) }}</p>
+      <p class="rented-until" *ngIf="car.available === false && car.rentedUntil">
+        Free on {{ car.rentedUntil }}
+      </p>
+      <span class="btn-details">View details</span>
+    </a>
+  </div>
+
+  <div class="pagination" *ngIf="totalPages > 0">
+    <button type="button" class="page-btn" [disabled]="page === 0" (click)="goToPage(page - 1)">‹ Prev</button>
+    <ng-container *ngFor="let p of pageItems">
+      <span class="page-ellipsis" *ngIf="p === '...'">…</span>
+      <button type="button" class="page-btn" *ngIf="p !== '...'"
+              [class.active]="p === page" (click)="goToPage($any(p))">{{ +p + 1 }}</button>
+    </ng-container>
+    <button type="button" class="page-btn" [disabled]="page === totalPages - 1" (click)="goToPage(page + 1)">Next ›</button>
+  </div>
+</div>
+
+<app-why-choose #whyChoose></app-why-choose>
