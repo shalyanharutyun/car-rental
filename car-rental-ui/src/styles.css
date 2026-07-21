@@ -436,7 +436,8 @@ body {
   color: var(--text-secondary);
 }
 
-.filter-field select {
+.filter-field select,
+.filter-field input {
   padding: 9px 10px;
   border: 1px solid var(--border-strong);
   border-radius: 8px;

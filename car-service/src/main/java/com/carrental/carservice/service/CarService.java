@@ -29,13 +29,13 @@ public class CarService {
     private final CarRepository carRepository;
     private final FileStorageService fileStorageService;
 
-    public PageResponse<Car> getAllCars(int page, int size, Integer yearFrom, Integer yearTo, String location) {
+    public PageResponse<Car> getAllCars(int page, int size, Integer yearFrom, Integer yearTo, String location, String search) {
         Pageable pageable = PageRequest.of(Math.max(page, 0), Math.max(size, 1));
-        Specification<Car> spec = buildFilterSpec(yearFrom, yearTo, location);
+        Specification<Car> spec = buildFilterSpec(yearFrom, yearTo, location, search);
         return PageResponse.of(carRepository.findAll(spec, pageable));
     }
 
-    private Specification<Car> buildFilterSpec(Integer yearFrom, Integer yearTo, String location) {
+    private Specification<Car> buildFilterSpec(Integer yearFrom, Integer yearTo, String location, String search) {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 
@@ -49,6 +49,14 @@ public class CarService {
 
             if (StringUtils.hasText(location)) {
                 predicates.add(cb.like(cb.lower(root.get("location")), "%" + location.toLowerCase() + "%"));
+            }
+
+            if (StringUtils.hasText(search)) {
+                String pattern = "%" + search.toLowerCase() + "%";
+                predicates.add(cb.or(
+                        cb.like(cb.lower(root.get("brand")), pattern),
+                        cb.like(cb.lower(root.get("model")), pattern)
+                ));
             }
 
             return cb.and(predicates.toArray(new Predicate[0]));

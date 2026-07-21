@@ -23,8 +23,9 @@ public class CarController {
                                          @RequestParam(defaultValue = "12") int size,
                                          @RequestParam(required = false) Integer yearFrom,
                                          @RequestParam(required = false) Integer yearTo,
-                                         @RequestParam(required = false) String location) {
-        return carService.getAllCars(page, size, yearFrom, yearTo, location);
+                                         @RequestParam(required = false) String location,
+                                         @RequestParam(required = false) String search) {
+        return carService.getAllCars(page, size, yearFrom, yearTo, location, search);
     }
 
     @GetMapping("/mine")
