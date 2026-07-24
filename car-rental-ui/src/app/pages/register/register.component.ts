@@ -1,13 +1,14 @@
 import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../core/auth.service';
 import { LogoComponent } from '../../shared/logo/logo.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, RouterLink, LogoComponent],
+  imports: [FormsModule, RouterLink, LogoComponent, TranslatePipe],
   templateUrl: './register.component.html'
 })
 export class RegisterComponent implements OnDestroy {
@@ -23,7 +24,12 @@ export class RegisterComponent implements OnDestroy {
   secondsLeft = 0;
   private timerId: any = null;
 
-  constructor(private authService: AuthService, private router: Router, private cdr: ChangeDetectorRef) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private cdr: ChangeDetectorRef,
+    private translate: TranslateService
+  ) {}
 
   get googleLoginUrl() {
     return this.authService.googleLoginUrl;
@@ -50,7 +56,7 @@ export class RegisterComponent implements OnDestroy {
           this.cdr.markForCheck();
         },
         error: (err) => {
-          this.errorMessage = err.error?.message || 'Registration failed';
+          this.errorMessage = err.error?.message || this.translate.instant('auth.registrationFailed');
           this.cdr.markForCheck();
         }
       });
@@ -60,7 +66,7 @@ export class RegisterComponent implements OnDestroy {
     this.errorMessage = '';
 
     if (this.expired) {
-      this.errorMessage = 'Verification code expired. Please resend a new code.';
+      this.errorMessage = this.translate.instant('auth.codeExpiredResend');
       return;
     }
 
@@ -72,7 +78,7 @@ export class RegisterComponent implements OnDestroy {
           this.router.navigate(['/cars']);
         },
         error: (err) => {
-          this.errorMessage = err.error?.message || 'Invalid verification code';
+          this.errorMessage = err.error?.message || this.translate.instant('auth.invalidCode');
           this.cdr.markForCheck();
         }
       });

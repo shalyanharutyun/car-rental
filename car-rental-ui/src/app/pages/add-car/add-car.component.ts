@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { CarService } from '../../core/car.service';
 import { Currency, FuelType, RentalPeriod, SellerType, SteeringWheel } from '../../core/car.model';
 import { ARMENIA_REGIONS, ArmeniaRegion, buildLocation } from '../../core/armenia-locations';
@@ -10,7 +11,7 @@ import { LogoComponent } from '../../shared/logo/logo.component';
 @Component({
   selector: 'app-add-car',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, LogoComponent],
+  imports: [CommonModule, FormsModule, RouterLink, LogoComponent, TranslatePipe],
   templateUrl: './add-car.component.html'
 })
 export class AddCarComponent {
@@ -47,7 +48,7 @@ export class AddCarComponent {
 
   images: File[] = [];
 
-  constructor(private carService: CarService, private router: Router) {}
+  constructor(private carService: CarService, private router: Router, private translate: TranslateService) {}
 
   get selectedRegion(): ArmeniaRegion | undefined {
     return this.regions.find(r => r.name === this.region);
@@ -64,27 +65,27 @@ export class AddCarComponent {
 
   onSubmit() {
     if (!this.vin.trim()) {
-      alert('VIN is required');
+      alert(this.translate.instant('addCar.vinRequired'));
       return;
     }
 
     if (!this.region) {
-      alert('Please select a location');
+      alert(this.translate.instant('addCar.locationRequired'));
       return;
     }
 
     if (this.year === null || this.price === null) {
-      alert('Please fill in all fields');
+      alert(this.translate.instant('addCar.fillAllFields'));
       return;
     }
 
     if (!this.phoneNumber.trim()) {
-      alert('Phone number is required');
+      alert(this.translate.instant('addCar.phoneRequired'));
       return;
     }
 
     if (this.images.length < 5) {
-      alert('Please select at least 5 images');
+      alert(this.translate.instant('addCar.minImagesRequired'));
       return;
     }
 
@@ -117,7 +118,7 @@ export class AddCarComponent {
     }, this.images).subscribe({
       next: () => this.router.navigate(['/cars']),
       error: (err) => {
-        alert(err?.error?.message || 'Failed to add car');
+        alert(err?.error?.message || this.translate.instant('addCar.addCarFailed'));
       }
     });
   }

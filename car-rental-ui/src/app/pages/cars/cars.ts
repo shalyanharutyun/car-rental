@@ -6,15 +6,17 @@ import { CarService } from '../../core/car.service';
 import { Car } from '../../core/car.model';
 import { NotificationService } from '../../core/notification.service';
 import { ThemeToggleComponent } from '../../shared/theme-toggle/theme-toggle.component';
+import { LangSwitcherComponent } from '../../shared/lang-switcher/lang-switcher.component';
 import { AccountMenuComponent } from '../../shared/account-menu/account-menu.component';
 import { LogoComponent } from '../../shared/logo/logo.component';
 import { WhyChooseComponent } from '../../shared/why-choose/why-choose.component';
 import { ARMENIA_REGIONS, ArmeniaRegion, buildLocation } from '../../core/armenia-locations';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cars',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, ThemeToggleComponent, AccountMenuComponent, LogoComponent, WhyChooseComponent],
+  imports: [CommonModule, FormsModule, RouterLink, ThemeToggleComponent, LangSwitcherComponent, AccountMenuComponent, LogoComponent, WhyChooseComponent, TranslatePipe],
   templateUrl: './cars.html'
 })
 export class CarsComponent implements OnInit {

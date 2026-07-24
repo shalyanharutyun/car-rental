@@ -4,14 +4,16 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CarService } from '../../core/car.service';
 import { Car } from '../../core/car.model';
+import { TranslatePipe } from '@ngx-translate/core';
 import { ThemeToggleComponent } from '../../shared/theme-toggle/theme-toggle.component';
+import { LangSwitcherComponent } from '../../shared/lang-switcher/lang-switcher.component';
 import { AccountMenuComponent } from '../../shared/account-menu/account-menu.component';
 import { LogoComponent } from '../../shared/logo/logo.component';
 
 @Component({
   selector: 'app-car-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink, ThemeToggleComponent, AccountMenuComponent, LogoComponent],
+  imports: [CommonModule, RouterLink, ThemeToggleComponent, LangSwitcherComponent, AccountMenuComponent, LogoComponent, TranslatePipe],
   templateUrl: './car-detail.component.html'
 })
 export class CarDetailComponent implements OnInit {

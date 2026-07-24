@@ -1,7 +1,8 @@
 <header class="app-header">
   <app-logo></app-logo>
   <div class="header-actions">
-    <a class="btn-logout" routerLink="/cars">Back to cars</a>
+    <a class="btn-logout" routerLink="/cars">{{ 'nav.backToCars' | translate }}</a>
+    <app-lang-switcher></app-lang-switcher>
     <app-theme-toggle></app-theme-toggle>
     <app-account-menu></app-account-menu>
   </div>
@@ -10,24 +11,25 @@
 <div class="cars-page" *ngIf="car$ | async as c">
   <h2>{{ c.brand }} {{ c.model }} <span class="car-year">({{ c.year }})</span></h2>
 
-  <p class="car-price">{{ c.price }} {{ c.currency }} / {{ periodLabel(c) }}</p>
+  <p class="car-price">{{ c.price }} {{ c.currency }} / {{ 'cars.' + periodLabel(c) | translate }}</p>
 
   <div class="rent-cta">
-    <a class="btn btn-primary rent-btn" *ngIf="c.available !== false" [routerLink]="['/booking', c.id]">Rent this car</a>
+    <a class="btn btn-primary rent-btn" *ngIf="c.available !== false" [routerLink]="['/booking', c.id]">{{ 'carDetail.rentThisCar' | translate }}</a>
     <div class="rented-banner" *ngIf="c.available === false">
-      🚗 Rented<span *ngIf="c.rentedUntil"> · available on {{ c.rentedUntil }}</span>
+      <span *ngIf="c.rentedUntil; else noDate">{{ 'carDetail.rentedAvailableOn' | translate:{ date: c.rentedUntil } }}</span>
+      <ng-template #noDate>{{ 'carDetail.rentedNoDate' | translate }}</ng-template>
     </div>
   </div>
 
   <div class="car-detail-specs">
-    <p><strong>VIN:</strong> {{ c.vin }}</p>
-    <p><strong>Fuel:</strong> {{ c.fuelType }}</p>
-    <p><strong>Rental:</strong> {{ c.rentalPeriod }}</p>
-    <p *ngIf="c.sellerType"><strong>Status:</strong> {{ c.sellerType }}</p>
-    <p *ngIf="c.location"><strong>Location:</strong> {{ c.location }}</p>
-    <p *ngIf="c.description"><strong>Description:</strong> {{ c.description }}</p>
-    <p *ngIf="c.ownerEmail"><strong>Added by:</strong> {{ c.ownerEmail }}</p>
-    <p *ngIf="c.phoneNumber"><strong>Contact Phone:</strong> {{ c.phoneNumber }}</p>
+    <p><strong>{{ 'carDetail.vin' | translate }}:</strong> {{ c.vin }}</p>
+    <p><strong>{{ 'carDetail.fuel' | translate }}:</strong> {{ 'enums.fuel.' + c.fuelType | translate }}</p>
+    <p><strong>{{ 'carDetail.rental' | translate }}:</strong> {{ 'enums.rentalPeriod.' + c.rentalPeriod | translate }}</p>
+    <p *ngIf="c.sellerType"><strong>{{ 'carDetail.status' | translate }}:</strong> {{ 'enums.sellerType.' + c.sellerType | translate }}</p>
+    <p *ngIf="c.location"><strong>{{ 'carDetail.location' | translate }}:</strong> {{ c.location }}</p>
+    <p *ngIf="c.description"><strong>{{ 'carDetail.description' | translate }}:</strong> {{ c.description }}</p>
+    <p *ngIf="c.ownerEmail"><strong>{{ 'carDetail.addedBy' | translate }}:</strong> {{ c.ownerEmail }}</p>
+    <p *ngIf="c.phoneNumber"><strong>{{ 'carDetail.contactPhone' | translate }}:</strong> {{ c.phoneNumber }}</p>
   </div>
 
   <div class="image-gallery" *ngIf="c.images && c.images.length">
@@ -42,53 +44,53 @@
   </div>
 
   <div class="car-info-section">
-    <h3>Additional Information</h3>
+    <h3>{{ 'carDetail.additionalInfo' | translate }}</h3>
     <ul class="car-info-list">
-      <li *ngIf="c.mileage != null"><span>Mileage</span><strong>{{ c.mileage }}</strong></li>
-      <li *ngIf="c.currentCondition"><span>Current Condition</span><strong>{{ c.currentCondition }}</strong></li>
-      <li *ngIf="c.gasEquipment != null"><span>Gas Equipment</span><strong>{{ c.gasEquipment ? 'Yes' : 'No' }}</strong></li>
-      <li *ngIf="c.steeringWheel"><span>Steering Wheel</span><strong>{{ c.steeringWheel }}</strong></li>
-      <li *ngIf="c.clearedCustoms != null"><span>Cleared Customs</span><strong>{{ c.clearedCustoms ? 'Yes' : 'No' }}</strong></li>
-      <li *ngIf="c.exchangePossible != null"><span>Exchange Possible</span><strong>{{ c.exchangePossible ? 'Yes' : 'No' }}</strong></li>
+      <li *ngIf="c.mileage != null"><span>{{ 'carDetail.mileage' | translate }}</span><strong>{{ c.mileage }}</strong></li>
+      <li *ngIf="c.currentCondition"><span>{{ 'carDetail.currentCondition' | translate }}</span><strong>{{ c.currentCondition }}</strong></li>
+      <li *ngIf="c.gasEquipment != null"><span>{{ 'carDetail.gasEquipment' | translate }}</span><strong>{{ (c.gasEquipment ? 'common.yes' : 'common.no') | translate }}</strong></li>
+      <li *ngIf="c.steeringWheel"><span>{{ 'carDetail.steeringWheel' | translate }}</span><strong>{{ 'enums.steeringWheel.' + c.steeringWheel | translate }}</strong></li>
+      <li *ngIf="c.clearedCustoms != null"><span>{{ 'carDetail.clearedCustoms' | translate }}</span><strong>{{ (c.clearedCustoms ? 'common.yes' : 'common.no') | translate }}</strong></li>
+      <li *ngIf="c.exchangePossible != null"><span>{{ 'carDetail.exchangePossible' | translate }}</span><strong>{{ (c.exchangePossible ? 'common.yes' : 'common.no') | translate }}</strong></li>
     </ul>
   </div>
 
   <div class="car-info-section">
-    <h3>Exterior</h3>
+    <h3>{{ 'carDetail.exterior' | translate }}</h3>
     <ul class="car-info-list">
-      <li *ngIf="c.color"><span>Color</span><strong>{{ c.color }}</strong></li>
-      <li *ngIf="c.wheelSize != null"><span>Wheel Size</span><strong>{{ c.wheelSize }}</strong></li>
-      <li *ngIf="c.headlights"><span>Headlights</span><strong>{{ c.headlights }}</strong></li>
+      <li *ngIf="c.color"><span>{{ 'carDetail.color' | translate }}</span><strong>{{ c.color }}</strong></li>
+      <li *ngIf="c.wheelSize != null"><span>{{ 'carDetail.wheelSize' | translate }}</span><strong>{{ c.wheelSize }}</strong></li>
+      <li *ngIf="c.headlights"><span>{{ 'carDetail.headlights' | translate }}</span><strong>{{ c.headlights }}</strong></li>
     </ul>
   </div>
 
   <div class="car-info-section">
-    <h3>Interior</h3>
+    <h3>{{ 'carDetail.interior' | translate }}</h3>
     <ul class="car-info-list">
-      <li *ngIf="c.interiorColor"><span>Interior Color</span><strong>{{ c.interiorColor }}</strong></li>
-      <li *ngIf="c.interiorMaterial"><span>Interior Material</span><strong>{{ c.interiorMaterial }}</strong></li>
-      <li *ngIf="c.sunroof != null"><span>Sunroof</span><strong>{{ c.sunroof ? 'Yes' : 'No' }}</strong></li>
-      <li *ngIf="c.comfort"><span>Comfort</span><strong>{{ c.comfort }}</strong></li>
+      <li *ngIf="c.interiorColor"><span>{{ 'carDetail.interiorColor' | translate }}</span><strong>{{ c.interiorColor }}</strong></li>
+      <li *ngIf="c.interiorMaterial"><span>{{ 'carDetail.interiorMaterial' | translate }}</span><strong>{{ c.interiorMaterial }}</strong></li>
+      <li *ngIf="c.sunroof != null"><span>{{ 'carDetail.sunroof' | translate }}</span><strong>{{ (c.sunroof ? 'common.yes' : 'common.no') | translate }}</strong></li>
+      <li *ngIf="c.comfort"><span>{{ 'carDetail.comfort' | translate }}</span><strong>{{ c.comfort }}</strong></li>
     </ul>
   </div>
 
   <div class="car-rules">
-    <h3>Rules of the road</h3>
+    <h3>{{ 'carDetail.rules' | translate }}</h3>
     <ul>
       <li>
-        <strong>No smoking allowed</strong>
-        <span>Smoking in any vehicle will result in a $150 fine</span>
+        <strong>{{ 'carDetail.noSmoking' | translate }}</strong>
+        <span>{{ 'carDetail.noSmokingDesc' | translate }}</span>
       </li>
       <li>
-        <strong>Keep the vehicle tidy</strong>
-        <span>Unreasonably dirty vehicles may result in a $150 fine</span>
+        <strong>{{ 'carDetail.keepTidy' | translate }}</strong>
+        <span>{{ 'carDetail.keepTidyDesc' | translate }}</span>
       </li>
       <li>
-        <strong>Refuel the vehicle</strong>
-        <span>Missing fuel may result in an additional fee</span>
+        <strong>{{ 'carDetail.refuel' | translate }}</strong>
+        <span>{{ 'carDetail.refuelDesc' | translate }}</span>
       </li>
       <li>
-        <strong>No off-roading</strong>
+        <strong>{{ 'carDetail.noOffroad' | translate }}</strong>
       </li>
     </ul>
   </div>

@@ -1,7 +1,8 @@
 <header class="app-header">
   <app-logo></app-logo>
   <div class="header-actions">
-    <a class="btn-logout" [routerLink]="['/cars', carId]">Back to car</a>
+    <a class="btn-logout" [routerLink]="['/cars', carId]">{{ 'nav.backToCar' | translate }}</a>
+    <app-lang-switcher></app-lang-switcher>
     <app-theme-toggle></app-theme-toggle>
     <app-account-menu></app-account-menu>
   </div>
@@ -9,60 +10,60 @@
 
 <div class="checkout-page" *ngIf="loading">
   <div class="checkout-card">
-    <p class="muted">Loading car…</p>
+    <p class="muted">{{ 'booking.loadingCar' | translate }}</p>
   </div>
 </div>
 
 <div class="checkout-page" *ngIf="!loading && loadError">
   <div class="checkout-card">
-    <h2>Something went wrong</h2>
+    <h2>{{ 'booking.somethingWrong' | translate }}</h2>
     <p class="error">{{ loadError }}</p>
-    <a class="btn btn-primary" routerLink="/cars">Back to cars</a>
+    <a class="btn btn-primary" routerLink="/cars">{{ 'booking.backToCars' | translate }}</a>
   </div>
 </div>
 
 <div class="checkout-page" *ngIf="car as c">
   <div class="checkout-card">
-    <h2>Book your rental</h2>
+    <h2>{{ 'booking.bookTitle' | translate }}</h2>
 
     <div class="checkout-summary">
       <img *ngIf="c.images && c.images.length" [src]="imageBaseUrl + c.images[0]" alt="{{ c.brand }} {{ c.model }}">
       <div>
         <h3>{{ c.brand }} {{ c.model }}</h3>
         <p class="muted">{{ c.year }} · {{ c.location }}</p>
-        <p class="price-tag">{{ c.price }} {{ c.currency }} / {{ unitLabel }}</p>
+        <p class="price-tag">{{ c.price }} {{ c.currency }} / {{ 'cars.' + unitLabel | translate }}</p>
       </div>
     </div>
 
     <div class="rented-banner" *ngIf="c.available === false">
-      This car is currently rented<span *ngIf="c.rentedUntil"> until {{ c.rentedUntil }}</span>.
+      {{ 'booking.currentlyRented' | translate }}<span *ngIf="c.rentedUntil"> {{ 'booking.until' | translate:{ date: c.rentedUntil } }}</span>.
     </div>
 
     <ng-container *ngIf="c.available !== false">
       <div class="date-row">
         <div class="form-field">
-          <label>Start date</label>
+          <label>{{ 'booking.startDate' | translate }}</label>
           <input type="date" [(ngModel)]="startDate" [min]="today">
         </div>
         <div class="form-field">
-          <label>End date</label>
+          <label>{{ 'booking.endDate' | translate }}</label>
           <input type="date" [(ngModel)]="endDate" [min]="startDate || today">
         </div>
       </div>
 
       <div class="price-breakdown" *ngIf="valid">
         <div class="line">
-          <span>{{ c.price }} {{ c.currency }} × {{ units }} {{ unitLabel }}<span *ngIf="units > 1">s</span></span>
+          <span>{{ c.price }} {{ c.currency }} × {{ units }} {{ 'cars.' + unitLabel | translate }}<span *ngIf="units > 1">s</span></span>
           <span>{{ total }} {{ c.currency }}</span>
         </div>
         <div class="line total">
-          <span>Total</span>
+          <span>{{ 'booking.total' | translate }}</span>
           <span>{{ total }} {{ c.currency }}</span>
         </div>
       </div>
 
       <button class="btn btn-primary" [disabled]="!valid" (click)="continueToPayment()">
-        Continue to payment
+        {{ 'booking.continueToPayment' | translate }}
       </button>
     </ng-container>
   </div>

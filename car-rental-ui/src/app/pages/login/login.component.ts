@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../core/auth.service';
 import { LogoComponent } from '../../shared/logo/logo.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, RouterLink, LogoComponent],
+  imports: [FormsModule, RouterLink, LogoComponent, TranslatePipe],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -16,7 +17,7 @@ export class LoginComponent {
   email = '';
   password = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private translate: TranslateService) {}
 
   get googleLoginUrl() {
     return this.authService.googleLoginUrl;
@@ -31,7 +32,7 @@ export class LoginComponent {
         },
         error: (err) => {
           console.log("LOGIN ERROR", err);
-          alert("Wrong email or password");
+          alert(this.translate.instant('auth.wrongCredentials'));
         }
       });
   }

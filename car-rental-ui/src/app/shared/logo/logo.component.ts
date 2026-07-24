@@ -1,11 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-logo',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, TranslatePipe],
   template: `
     <a class="logo" routerLink="/cars">
       <span class="logo-word">
@@ -18,7 +19,7 @@ import { RouterLink } from '@angular/router';
           <circle cx="19.3" cy="18.9" r="1.5" fill="var(--surface)"/>
         </svg>
       </span>
-      <span class="logo-tagline" *ngIf="showTagline">Your Journey, Your Way</span>
+      <span class="logo-tagline" *ngIf="showTagline">{{ 'logo.tagline' | translate }}</span>
     </a>
   `
 })

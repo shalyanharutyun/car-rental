@@ -1,7 +1,8 @@
 <header class="app-header">
   <app-logo></app-logo>
   <div class="header-actions">
-    <a class="btn-logout" routerLink="/cars">Back to cars</a>
+    <a class="btn-logout" routerLink="/cars">{{ 'nav.backToCars' | translate }}</a>
+    <app-lang-switcher></app-lang-switcher>
     <app-theme-toggle></app-theme-toggle>
     <app-account-menu></app-account-menu>
   </div>
@@ -9,49 +10,49 @@
 
 <div class="checkout-page" *ngIf="loading">
   <div class="checkout-card">
-    <p class="muted">Loading…</p>
+    <p class="muted">{{ 'payment.loading' | translate }}</p>
   </div>
 </div>
 
 <div class="checkout-page" *ngIf="!loading && loadError">
   <div class="checkout-card">
-    <h2>Something went wrong</h2>
+    <h2>{{ 'payment.somethingWrong' | translate }}</h2>
     <p class="error">{{ loadError }}</p>
-    <a class="btn btn-primary" routerLink="/cars">Back to cars</a>
+    <a class="btn btn-primary" routerLink="/cars">{{ 'payment.backToCars' | translate }}</a>
   </div>
 </div>
 
 <div class="checkout-page" *ngIf="car as c">
 
   <div class="checkout-card" *ngIf="!done">
-    <h2>Payment</h2>
+    <h2>{{ 'payment.title' | translate }}</h2>
 
     <div class="checkout-summary">
       <img *ngIf="c.images && c.images.length" [src]="'http://159.69.122.189:8080' + c.images[0]" alt="{{ c.brand }} {{ c.model }}">
       <div>
         <h3>{{ c.brand }} {{ c.model }}</h3>
         <p class="muted">{{ startDate }} → {{ endDate }}</p>
-        <p class="price-tag">Total: {{ total }} {{ c.currency }}</p>
+        <p class="price-tag">{{ 'payment.total' | translate:{ amount: total + ' ' + c.currency } }}</p>
       </div>
     </div>
 
     <div class="method-section">
-      <label class="section-label">Payment method</label>
+      <label class="section-label">{{ 'payment.paymentMethod' | translate }}</label>
       <div class="method-options">
         <button type="button" class="method-option" [class.selected]="paymentMethod === 'CARD'"
                 (click)="selectMethod('CARD')">
           <span class="method-icon">💳</span>
           <span class="method-text">
-            <strong>Credit / debit card</strong>
-            <span>Pay now, online</span>
+            <strong>{{ 'payment.cardOption' | translate }}</strong>
+            <span>{{ 'payment.cardDesc' | translate }}</span>
           </span>
         </button>
         <button type="button" class="method-option" [class.selected]="paymentMethod === 'CASH'"
                 (click)="selectMethod('CASH')">
           <span class="method-icon">💵</span>
           <span class="method-text">
-            <strong>Cash on pickup</strong>
-            <span>Pay the owner when you collect the car</span>
+            <strong>{{ 'payment.cashOption' | translate }}</strong>
+            <span>{{ 'payment.cashDesc' | translate }}</span>
           </span>
         </button>
       </div>
@@ -68,47 +69,46 @@
       </div>
 
       <div class="form-field">
-        <label>Cardholder name</label>
+        <label>{{ 'payment.cardholderName' | translate }}</label>
         <input type="text" [(ngModel)]="cardName" placeholder="John Doe">
       </div>
       <div class="form-field">
-        <label>Card number</label>
+        <label>{{ 'payment.cardNumber' | translate }}</label>
         <input type="text" [(ngModel)]="cardNumber" placeholder="4242 4242 4242 4242" maxlength="19">
       </div>
       <div class="date-row">
         <div class="form-field">
-          <label>Expiry</label>
+          <label>{{ 'payment.expiry' | translate }}</label>
           <input type="text" [(ngModel)]="expiry" placeholder="MM/YY" maxlength="5">
         </div>
         <div class="form-field">
-          <label>CVC</label>
+          <label>{{ 'payment.cvc' | translate }}</label>
           <input type="text" [(ngModel)]="cvc" placeholder="123" maxlength="4">
         </div>
       </div>
     </ng-container>
 
     <div class="cash-note" *ngIf="paymentMethod === 'CASH'">
-      You will pay <strong>{{ total }} {{ c.currency }}</strong> in cash directly to the owner when you pick up the car.
-      The car is reserved for you as soon as you confirm.
+      {{ 'payment.cashNote' | translate:{ amount: total + ' ' + c.currency } }}
     </div>
 
     <p class="error" *ngIf="error">{{ error }}</p>
 
     <button class="btn btn-primary" [disabled]="!formValid || processing" (click)="pay()">
-      {{ processing ? 'Processing…' : payLabel }}
+      {{ processing ? ('payment.processing' | translate) : payLabel }}
     </button>
-    <p class="secure-note" *ngIf="paymentMethod === 'CARD'">🔒 This is a simulated payment. No real card is charged.</p>
+    <p class="secure-note" *ngIf="paymentMethod === 'CARD'">{{ 'payment.secureNote' | translate }}</p>
   </div>
 
   <div class="checkout-card success" *ngIf="done">
     <div class="success-icon">✓</div>
-    <h2>{{ paymentMethod === 'CASH' ? 'Booking confirmed' : 'Payment successful' }}</h2>
-    <p class="muted">Your booking for <strong>{{ c.brand }} {{ c.model }}</strong> is confirmed until <strong>{{ endDate }}</strong>.
-      <span *ngIf="paymentMethod === 'CASH'">Pay {{ total }} {{ c.currency }} in cash on pickup.</span>
-      A confirmation has been sent to your notifications and email.</p>
+    <h2>{{ (paymentMethod === 'CASH' ? 'payment.bookingConfirmed' : 'payment.paymentSuccessful') | translate }}</h2>
+    <p class="muted">{{ 'payment.confirmedUntil' | translate:{ car: c.brand + ' ' + c.model, date: endDate } }}
+      <span *ngIf="paymentMethod === 'CASH'">{{ 'payment.payInCash' | translate:{ amount: total + ' ' + c.currency } }}</span>
+      {{ 'payment.confirmationSent' | translate }}</p>
     <div class="success-actions">
-      <a class="btn btn-primary" routerLink="/notifications">View notifications</a>
-      <a class="btn-logout" routerLink="/cars">Back to cars</a>
+      <a class="btn btn-primary" routerLink="/notifications">{{ 'payment.viewNotifications' | translate }}</a>
+      <a class="btn-logout" routerLink="/cars">{{ 'nav.backToCars' | translate }}</a>
     </div>
   </div>
 </div>
