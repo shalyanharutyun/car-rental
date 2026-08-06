@@ -1,4 +1,7 @@
 <div class="auth-page">
+  <div class="auth-topbar">
+    <app-lang-switcher></app-lang-switcher>
+  </div>
   <div class="auth-card">
     <app-logo class="auth-logo"></app-logo>
     <h2>{{ 'addCar.title' | translate }}</h2>
@@ -107,7 +110,7 @@
 
         <div class="form-field">
           <label for="currentCondition">{{ 'addCar.currentCondition' | translate }}</label>
-          <input id="currentCondition" [(ngModel)]="currentCondition" name="currentCondition" placeholder="Excellent">
+          <input id="currentCondition" [(ngModel)]="currentCondition" name="currentCondition" [placeholder]="'addCar.currentConditionPlaceholder' | translate">
         </div>
       </div>
 
@@ -139,7 +142,7 @@
       <div class="form-row">
         <div class="form-field">
           <label for="color">{{ 'addCar.color' | translate }}</label>
-          <input id="color" [(ngModel)]="color" name="color" placeholder="Black">
+          <input id="color" [(ngModel)]="color" name="color" [placeholder]="'addCar.colorPlaceholder' | translate">
         </div>
 
         <div class="form-field">
@@ -149,7 +152,7 @@
 
         <div class="form-field">
           <label for="headlights">{{ 'addCar.headlights' | translate }}</label>
-          <input id="headlights" [(ngModel)]="headlights" name="headlights" placeholder="LED">
+          <input id="headlights" [(ngModel)]="headlights" name="headlights" [placeholder]="'addCar.headlightsPlaceholder' | translate">
         </div>
       </div>
 
@@ -157,12 +160,12 @@
       <div class="form-row">
         <div class="form-field">
           <label for="interiorColor">{{ 'addCar.interiorColor' | translate }}</label>
-          <input id="interiorColor" [(ngModel)]="interiorColor" name="interiorColor" placeholder="Beige">
+          <input id="interiorColor" [(ngModel)]="interiorColor" name="interiorColor" [placeholder]="'addCar.interiorColorPlaceholder' | translate">
         </div>
 
         <div class="form-field">
           <label for="interiorMaterial">{{ 'addCar.interiorMaterial' | translate }}</label>
-          <input id="interiorMaterial" [(ngModel)]="interiorMaterial" name="interiorMaterial" placeholder="Leather">
+          <input id="interiorMaterial" [(ngModel)]="interiorMaterial" name="interiorMaterial" [placeholder]="'addCar.interiorMaterialPlaceholder' | translate">
         </div>
       </div>
 

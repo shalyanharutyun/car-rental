@@ -1,4 +1,7 @@
 <div class="auth-page">
+  <div class="auth-topbar">
+    <app-lang-switcher></app-lang-switcher>
+  </div>
   <div class="auth-card">
     <app-logo class="auth-logo" [showTagline]="true"></app-logo>
     <h2>{{ 'auth.createAccount' | translate }}</h2>
@@ -8,12 +11,12 @@
       <div class="form-row">
         <div class="form-field">
           <label for="firstName">{{ 'auth.firstName' | translate }}</label>
-          <input id="firstName" [(ngModel)]="firstName" name="firstName" placeholder="John" required>
+          <input id="firstName" [(ngModel)]="firstName" name="firstName" [placeholder]="'auth.firstNamePlaceholder' | translate" required>
         </div>
 
         <div class="form-field">
           <label for="lastName">{{ 'auth.lastName' | translate }}</label>
-          <input id="lastName" [(ngModel)]="lastName" name="lastName" placeholder="Doe" required>
+          <input id="lastName" [(ngModel)]="lastName" name="lastName" [placeholder]="'auth.lastNamePlaceholder' | translate" required>
         </div>
       </div>
 

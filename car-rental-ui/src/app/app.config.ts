@@ -7,7 +7,7 @@ import { provideTranslateService } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 import { routes } from './app.routes';
 import { authInterceptor } from './core/auth.interceptor';
-import { SUPPORTED_LANGS, detectInitialLang } from './core/i18n';
+import { DEFAULT_LANG, SUPPORTED_LANGS, detectInitialLang } from './core/i18n';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,7 +17,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideTranslateHttpLoader({ prefix: '/i18n/', suffix: '.json' }),
     provideTranslateService({
-      fallbackLang: 'en',
+      fallbackLang: DEFAULT_LANG,
       lang: detectInitialLang()
     })
   ]

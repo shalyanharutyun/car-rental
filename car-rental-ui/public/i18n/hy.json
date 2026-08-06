@@ -71,7 +71,10 @@
     "wrongCredentials": "Սխալ էլ. հասցե կամ գաղտնաբառ",
     "registrationFailed": "Գրանցումը ձախողվեց",
     "codeExpiredResend": "Հաստատման կոդի ժամկետը լրացել է: Խնդրում ենք ուղարկել նոր կոդ:",
-    "invalidCode": "Անվավեր հաստատման կոդ"
+    "invalidCode": "Անվավեր հաստատման կոդ",
+    "signingIn": "Մուտք ենք գործում…",
+    "firstNamePlaceholder": "Արամ",
+    "lastNamePlaceholder": "Հակոբյան"
   },
   "addCar": {
     "title": "Ավելացնել մեքենա",
@@ -131,7 +134,12 @@
     "fillAllFields": "Խնդրում ենք լրացնել բոլոր դաշտերը",
     "phoneRequired": "Հեռախոսահամարը պարտադիր է",
     "minImagesRequired": "Խնդրում ենք ընտրել առնվազն 5 նկար",
-    "addCarFailed": "Չհաջողվեց ավելացնել մեքենան"
+    "addCarFailed": "Չհաջողվեց ավելացնել մեքենան",
+    "currentConditionPlaceholder": "Գերազանց",
+    "colorPlaceholder": "Սև",
+    "headlightsPlaceholder": "LED",
+    "interiorColorPlaceholder": "Բեժ",
+    "interiorMaterialPlaceholder": "Կաշի"
   },
   "carDetail": {
     "rentThisCar": "Վարձակալել այս մեքենան",
@@ -221,7 +229,8 @@
     "missingDates": "Վարձակալման ամսաթվերը բացակայում են: Խնդրում ենք սկսել ամրագրումը կրկին:",
     "carGone": "Այս մեքենան այլևս գոյություն չունի:",
     "loadFailed": "Չհաջողվեց բեռնել այս մեքենան: Համոզվեք, որ ծառայությունները աշխատում են և կրկին փորձեք:",
-    "payFailed": "Վճարումը հնարավոր չեղավ մշակել: Խնդրում ենք կրկին փորձել:"
+    "payFailed": "Վճարումը հնարավոր չեղավ մշակել: Խնդրում ենք կրկին փորձել:",
+    "cardholderNamePlaceholder": "Արամ Հակոբյան"
   },
   "notifications": {
     "title": "Ծանուցումներ",
@@ -252,5 +261,9 @@
   "common": {
     "yes": "Այո",
     "no": "Ոչ"
+  },
+  "theme": {
+    "switchToLight": "Անցնել լուսավոր ռեժիմի",
+    "switchToDark": "Անցնել մուգ ռեժիմի"
   }
 }

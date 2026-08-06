@@ -71,7 +71,10 @@
     "wrongCredentials": "Wrong email or password",
     "registrationFailed": "Registration failed",
     "codeExpiredResend": "Verification code expired. Please resend a new code.",
-    "invalidCode": "Invalid verification code"
+    "invalidCode": "Invalid verification code",
+    "signingIn": "Signing you in…",
+    "firstNamePlaceholder": "John",
+    "lastNamePlaceholder": "Doe"
   },
   "addCar": {
     "title": "Add a Car",
@@ -131,7 +134,12 @@
     "fillAllFields": "Please fill in all fields",
     "phoneRequired": "Phone number is required",
     "minImagesRequired": "Please select at least 5 images",
-    "addCarFailed": "Failed to add car"
+    "addCarFailed": "Failed to add car",
+    "currentConditionPlaceholder": "Excellent",
+    "colorPlaceholder": "Black",
+    "headlightsPlaceholder": "LED",
+    "interiorColorPlaceholder": "Beige",
+    "interiorMaterialPlaceholder": "Leather"
   },
   "carDetail": {
     "rentThisCar": "Rent this car",
@@ -221,7 +229,8 @@
     "missingDates": "Missing rental dates. Please start the booking again.",
     "carGone": "This car no longer exists.",
     "loadFailed": "Could not load this car. Please make sure the services are running and try again.",
-    "payFailed": "Payment could not be processed. Please try again."
+    "payFailed": "Payment could not be processed. Please try again.",
+    "cardholderNamePlaceholder": "John Doe"
   },
   "notifications": {
     "title": "Notifications",
@@ -252,5 +261,9 @@
   "common": {
     "yes": "Yes",
     "no": "No"
+  },
+  "theme": {
+    "switchToLight": "Switch to light mode",
+    "switchToDark": "Switch to dark mode"
   }
 }
