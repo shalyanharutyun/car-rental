@@ -69,3 +69,40 @@ jobs:
           tags: |
             ghcr.io/${{ github.repository_owner }}/car-rental-${{ matrix.service }}:latest
             ghcr.io/${{ github.repository_owner }}/car-rental-${{ matrix.service }}:${{ github.sha }}
+
+  deploy:
+    name: Deploy to server
+    needs: docker
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check deploy secrets are configured
+        id: check
+        run: |
+          if [ -z "${{ secrets.SERVER_HOST }}" ]; then
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::SERVER_HOST is not set — skipping deploy. Add the deploy secrets to enable it."
+          else
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Pull new images and restart on the server
+        if: steps.check.outputs.configured == 'true'
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script_stop: true
+          envs: GHCR_ACTOR,GHCR_TOKEN,DEPLOY_PATH
+          script: |
+            cd "$DEPLOY_PATH"
+            git pull --ff-only
+            echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GHCR_ACTOR" --password-stdin
+            docker compose pull
+            docker compose up -d
+            docker image prune -f
+        env:
+          GHCR_ACTOR: ${{ github.actor }}
+          GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+          DEPLOY_PATH: ${{ vars.DEPLOY_PATH || '~/car-rental' }}
