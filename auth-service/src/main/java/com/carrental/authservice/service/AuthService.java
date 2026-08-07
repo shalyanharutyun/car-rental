@@ -47,7 +47,17 @@ public class AuthService {
 
         userRepository.save(user);
 
-        emailService.sendVerificationCode(user.getEmail(), code);
+        boolean emailSent = emailService.sendVerificationCode(user.getEmail(), code);
+
+        if (!emailSent) {
+            user.setEnabled(true);
+            user.setVerificationCode(null);
+            user.setCodeExpiresAt(null);
+            userRepository.save(user);
+
+            String token = jwtService.generateToken(user.getEmail());
+            return new MessageResponse("Registration completed", token);
+        }
 
         return new MessageResponse("Verification code sent to your email");
     }

@@ -50,7 +50,13 @@ export class RegisterComponent implements OnDestroy {
     this.errorMessage = '';
     this.authService.register(this.firstName, this.lastName, this.email, this.password)
       .subscribe({
-        next: () => {
+        next: (res: any) => {
+          if (res.token) {
+            localStorage.setItem("token", res.token);
+            this.router.navigate(['/cars']);
+            return;
+          }
+
           this.step = 2;
           this.code = '';
           this.startTimer();
