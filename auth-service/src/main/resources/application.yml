@@ -15,7 +15,7 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: ${MAIL_USERNAME:contactmyride.app@gmail.com}
-    password: ${MAIL_PASSWORD:pngo vgkt ikfk qeya}
+    password: ${MAIL_PASSWORD:pngovgktikfkqeya}
     properties:
       mail:
         smtp:
