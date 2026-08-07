@@ -13,6 +13,7 @@ public class RouteValidator {
             "/auth/register",
             "/auth/verify",
             "/oauth2",
+            "/login/oauth2",
             "/images"
     );
 
