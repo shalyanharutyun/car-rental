@@ -50,13 +50,7 @@ public class AuthService {
         boolean emailSent = emailService.sendVerificationCode(user.getEmail(), code);
 
         if (!emailSent) {
-            user.setEnabled(true);
-            user.setVerificationCode(null);
-            user.setCodeExpiresAt(null);
-            userRepository.save(user);
-
-            String token = jwtService.generateToken(user.getEmail());
-            return new MessageResponse("Registration completed", token);
+            throw new RuntimeException("Verification email could not be sent. Please configure mail settings and try again.");
         }
 
         return new MessageResponse("Verification code sent to your email");
