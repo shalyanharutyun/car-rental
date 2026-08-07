@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,11 +30,13 @@ public class EmailService {
         }
 
         SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(normalizeUsername());
         message.setTo(to);
         message.setSubject("Car Rental - Email Verification");
         message.setText("Your verification code is: " + code);
 
         try {
+            applyNormalizedCredentials();
             mailSender.send(message);
             return true;
         } catch (MailException ex) {
@@ -43,14 +46,33 @@ public class EmailService {
     }
 
     private boolean isMailConfigured() {
-        return hasValue(mailUsername)
-                && hasValue(mailPassword)
-                && !"CHANGE_ME".equalsIgnoreCase(mailUsername)
-                && !"CHANGE_ME".equalsIgnoreCase(mailPassword);
+        String username = normalizeUsername();
+        String password = normalizePassword();
+
+        return hasValue(username)
+                && hasValue(password)
+                && !"CHANGE_ME".equalsIgnoreCase(username)
+                && !"CHANGE_ME".equalsIgnoreCase(password);
     }
 
     private boolean hasValue(String value) {
         return value != null && !value.isBlank();
+    }
+
+    private void applyNormalizedCredentials() {
+        if (mailSender instanceof JavaMailSenderImpl) {
+            JavaMailSenderImpl sender = (JavaMailSenderImpl) mailSender;
+            sender.setUsername(normalizeUsername());
+            sender.setPassword(normalizePassword());
+        }
+    }
+
+    private String normalizeUsername() {
+        return mailUsername == null ? "" : mailUsername.trim();
+    }
+
+    private String normalizePassword() {
+        return mailPassword == null ? "" : mailPassword.replaceAll("\\s+", "");
     }
 }
 
