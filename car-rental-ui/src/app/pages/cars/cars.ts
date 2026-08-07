@@ -12,6 +12,7 @@ import { LogoComponent } from '../../shared/logo/logo.component';
 import { WhyChooseComponent } from '../../shared/why-choose/why-choose.component';
 import { ARMENIA_REGIONS, ArmeniaRegion, buildLocation } from '../../core/armenia-locations';
 import { TranslatePipe } from '@ngx-translate/core';
+import { API_BASE_URL } from '../../core/api.config';
 
 @Component({
   selector: 'app-cars',
@@ -22,7 +23,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 export class CarsComponent implements OnInit {
 
   cars: Car[] = [];
-  imageBaseUrl = 'http://159.69.122.189:8080';
+  imageBaseUrl = API_BASE_URL;
   unread = 0;
 
   page = 0;

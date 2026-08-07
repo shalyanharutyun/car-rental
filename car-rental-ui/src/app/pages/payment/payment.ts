@@ -10,6 +10,7 @@ import { ThemeToggleComponent } from '../../shared/theme-toggle/theme-toggle.com
 import { LangSwitcherComponent } from '../../shared/lang-switcher/lang-switcher.component';
 import { AccountMenuComponent } from '../../shared/account-menu/account-menu.component';
 import { LogoComponent } from '../../shared/logo/logo.component';
+import { API_BASE_URL } from '../../core/api.config';
 
 @Component({
   selector: 'app-payment',
@@ -24,6 +25,7 @@ export class Payment implements OnInit {
   carId!: number;
   startDate = '';
   endDate = '';
+  imageBaseUrl = API_BASE_URL;
 
   loading = true;
   loadError = '';
