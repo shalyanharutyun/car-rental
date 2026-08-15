@@ -17,7 +17,7 @@ import { LogoComponent } from '../../shared/logo/logo.component';
 export class CarDetailComponent implements OnInit {
 
   car$!: Observable<Car>;
-  imageBaseUrl = 'http://localhost:8080';
+  imageBaseUrl = 'http://159.69.122.189:8080';
   currentImageIndex = 0;
 
   constructor(private route: ActivatedRoute, private carService: CarService) {}

@@ -28,7 +28,7 @@ export interface NewBooking {
 })
 export class BookingService {
 
-  private baseUrl = 'http://localhost:8080/bookings';
+  private baseUrl = 'http://159.69.122.189:8080/bookings';
 
   constructor(private http: HttpClient) {}
 

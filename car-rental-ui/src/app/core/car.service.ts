@@ -10,7 +10,7 @@ export type NewCar = Omit<Car, 'id' | 'images' | 'available' | 'ownerEmail'>;
 })
 export class CarService {
 
-  private baseUrl = 'http://localhost:8080/cars';
+  private baseUrl = 'http://159.69.122.189:8080/cars';
 
   constructor(private http: HttpClient) {}
 

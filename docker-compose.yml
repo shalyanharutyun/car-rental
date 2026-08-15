@@ -167,7 +167,7 @@ services:
     depends_on:
       - api-gateway
     ports:
-      - "4200:80"
+      - "80:80"
 
 volumes:
   postgres-data:
