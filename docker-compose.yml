@@ -52,6 +52,7 @@ services:
       retries: 10
 
   auth-service:
+    image: ghcr.io/shalyanharutyun/car-rental-auth-service:latest
     build:
       context: .
       dockerfile: auth-service/Dockerfile
@@ -70,6 +71,7 @@ services:
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
 
   car-service:
+    image: ghcr.io/shalyanharutyun/car-rental-car-service:latest
     build:
       context: .
       dockerfile: car-service/Dockerfile
@@ -90,6 +92,7 @@ services:
       - ./car-service/uploads:/app/uploads
 
   booking-service:
+    image: ghcr.io/shalyanharutyun/car-rental-booking-service:latest
     build:
       context: .
       dockerfile: booking-service/Dockerfile
@@ -110,6 +113,7 @@ services:
       CAR_SERVICE_URL: http://car-service:8081
 
   payment-service:
+    image: ghcr.io/shalyanharutyun/car-rental-payment-service:latest
     build:
       context: .
       dockerfile: payment-service/Dockerfile
@@ -127,6 +131,7 @@ services:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
 
   notification-service:
+    image: ghcr.io/shalyanharutyun/car-rental-notification-service:latest
     build:
       context: .
       dockerfile: notification-service/Dockerfile
@@ -146,6 +151,7 @@ services:
       MAIL_PASSWORD: ${MAIL_PASSWORD}
 
   api-gateway:
+    image: ghcr.io/shalyanharutyun/car-rental-api-gateway:latest
     build:
       context: .
       dockerfile: api-gateway/Dockerfile
@@ -167,6 +173,7 @@ services:
       NOTIFICATION_SERVICE_URL: http://notification-service:8085
 
   car-rental-ui:
+    image: ghcr.io/shalyanharutyun/car-rental-car-rental-ui:latest
     build:
       context: .
       dockerfile: car-rental-ui/Dockerfile
