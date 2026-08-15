@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-oauth2-redirect',
   standalone: true,
+  imports: [TranslatePipe],
   template: `
     <div class="auth-page">
-      <p>Signing you in...</p>
+      <p>{{ 'auth.signingIn' | translate }}</p>
     </div>
   `
 })

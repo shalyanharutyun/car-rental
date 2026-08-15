@@ -71,7 +71,10 @@
     "wrongCredentials": "Неверный email или пароль",
     "registrationFailed": "Не удалось зарегистрироваться",
     "codeExpiredResend": "Срок действия кода истёк. Пожалуйста, запросите новый код.",
-    "invalidCode": "Неверный код подтверждения"
+    "invalidCode": "Неверный код подтверждения",
+    "signingIn": "Выполняется вход…",
+    "firstNamePlaceholder": "Иван",
+    "lastNamePlaceholder": "Иванов"
   },
   "addCar": {
     "title": "Добавить автомобиль",
@@ -131,7 +134,12 @@
     "fillAllFields": "Пожалуйста, заполните все поля",
     "phoneRequired": "Требуется номер телефона",
     "minImagesRequired": "Пожалуйста, выберите минимум 5 фотографий",
-    "addCarFailed": "Не удалось добавить автомобиль"
+    "addCarFailed": "Не удалось добавить автомобиль",
+    "currentConditionPlaceholder": "Отличное",
+    "colorPlaceholder": "Чёрный",
+    "headlightsPlaceholder": "Светодиодные",
+    "interiorColorPlaceholder": "Бежевый",
+    "interiorMaterialPlaceholder": "Кожа"
   },
   "carDetail": {
     "rentThisCar": "Арендовать этот автомобиль",
@@ -221,7 +229,8 @@
     "missingDates": "Отсутствуют даты аренды. Пожалуйста, начните бронирование заново.",
     "carGone": "Этот автомобиль больше не существует.",
     "loadFailed": "Не удалось загрузить автомобиль. Убедитесь, что сервисы запущены, и попробуйте снова.",
-    "payFailed": "Не удалось обработать платёж. Пожалуйста, попробуйте снова."
+    "payFailed": "Не удалось обработать платёж. Пожалуйста, попробуйте снова.",
+    "cardholderNamePlaceholder": "Иван Иванов"
   },
   "notifications": {
     "title": "Уведомления",
@@ -252,5 +261,9 @@
   "common": {
     "yes": "Да",
     "no": "Нет"
+  },
+  "theme": {
+    "switchToLight": "Переключить на светлую тему",
+    "switchToDark": "Переключить на тёмную тему"
   }
 }

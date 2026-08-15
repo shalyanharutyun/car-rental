@@ -1,7 +1,6 @@
-import { Component, ElementRef, HostListener } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ElementRef, HostListener, inject, signal } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { SUPPORTED_LANGS, SupportedLang, saveLang } from '../../core/i18n';
+import { DEFAULT_LANG, SUPPORTED_LANGS, SupportedLang, saveLang } from '../../core/i18n';
 
 const LANG_LABELS: Record<SupportedLang, string> = {
   en: 'EN',
@@ -12,42 +11,46 @@ const LANG_LABELS: Record<SupportedLang, string> = {
 @Component({
   selector: 'app-lang-switcher',
   standalone: true,
-  imports: [CommonModule],
   template: `
     <div class="lang-switcher">
-      <button type="button" class="lang-toggle" (click)="open = !open">
+      <button type="button" class="lang-toggle" (click)="open.set(!open())">
         {{ label(translate.currentLang()) }}
       </button>
-      <div class="lang-dropdown" *ngIf="open">
-        <button type="button" class="lang-option" *ngFor="let lang of langs"
-                [class.active]="lang === translate.currentLang()"
-                (click)="select(lang)">
-          {{ label(lang) }}
-        </button>
-      </div>
+      @if (open()) {
+        <div class="lang-dropdown">
+          @for (lang of langs; track lang) {
+            <button type="button" class="lang-option"
+                    [class.active]="lang === translate.currentLang()"
+                    (click)="select(lang)">
+              {{ label(lang) }}
+            </button>
+          }
+        </div>
+      }
     </div>
   `
 })
 export class LangSwitcherComponent {
-  langs = SUPPORTED_LANGS;
-  open = false;
+  protected readonly langs = SUPPORTED_LANGS;
+  protected readonly open = signal(false);
+  protected readonly translate = inject(TranslateService);
 
-  constructor(protected translate: TranslateService, private hostRef: ElementRef) {}
+  private readonly hostRef = inject(ElementRef);
 
   label(lang: string | null): string {
-    return lang && lang in LANG_LABELS ? LANG_LABELS[lang as SupportedLang] : LANG_LABELS.en;
+    return lang && lang in LANG_LABELS ? LANG_LABELS[lang as SupportedLang] : LANG_LABELS[DEFAULT_LANG];
   }
 
   select(lang: SupportedLang) {
     this.translate.use(lang);
     saveLang(lang);
-    this.open = false;
+    this.open.set(false);
   }
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent) {
-    if (this.open && !this.hostRef.nativeElement.contains(event.target)) {
-      this.open = false;
+    if (this.open() && !this.hostRef.nativeElement.contains(event.target)) {
+      this.open.set(false);
     }
   }
 }

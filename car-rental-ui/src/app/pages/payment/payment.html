@@ -70,7 +70,7 @@
 
       <div class="form-field">
         <label>{{ 'payment.cardholderName' | translate }}</label>
-        <input type="text" [(ngModel)]="cardName" placeholder="John Doe">
+        <input type="text" [(ngModel)]="cardName" [placeholder]="'payment.cardholderNamePlaceholder' | translate">
       </div>
       <div class="form-field">
         <label>{{ 'payment.cardNumber' | translate }}</label>

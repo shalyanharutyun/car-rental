@@ -4,11 +4,12 @@ import { Router, RouterLink } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../core/auth.service';
 import { LogoComponent } from '../../shared/logo/logo.component';
+import { LangSwitcherComponent } from '../../shared/lang-switcher/lang-switcher.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, RouterLink, LogoComponent, TranslatePipe],
+  imports: [FormsModule, RouterLink, LogoComponent, LangSwitcherComponent, TranslatePipe],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })

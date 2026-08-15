@@ -7,11 +7,12 @@ import { CarService } from '../../core/car.service';
 import { Currency, FuelType, RentalPeriod, SellerType, SteeringWheel } from '../../core/car.model';
 import { ARMENIA_REGIONS, ArmeniaRegion, buildLocation } from '../../core/armenia-locations';
 import { LogoComponent } from '../../shared/logo/logo.component';
+import { LangSwitcherComponent } from '../../shared/lang-switcher/lang-switcher.component';
 
 @Component({
   selector: 'app-add-car',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, LogoComponent, TranslatePipe],
+  imports: [CommonModule, FormsModule, RouterLink, LogoComponent, LangSwitcherComponent, TranslatePipe],
   templateUrl: './add-car.component.html'
 })
 export class AddCarComponent {
