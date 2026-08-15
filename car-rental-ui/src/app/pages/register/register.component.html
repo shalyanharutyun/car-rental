@@ -1,55 +1,55 @@
 <div class="auth-page">
   <div class="auth-card">
     <app-logo class="auth-logo" [showTagline]="true"></app-logo>
-    <h2>Create your account</h2>
+    <h2>{{ 'auth.createAccount' | translate }}</h2>
 
     @if (step === 1) {
     <form (ngSubmit)="onRegister()">
       <div class="form-row">
         <div class="form-field">
-          <label for="firstName">First name</label>
+          <label for="firstName">{{ 'auth.firstName' | translate }}</label>
           <input id="firstName" [(ngModel)]="firstName" name="firstName" placeholder="John" required>
         </div>
 
         <div class="form-field">
-          <label for="lastName">Last name</label>
+          <label for="lastName">{{ 'auth.lastName' | translate }}</label>
           <input id="lastName" [(ngModel)]="lastName" name="lastName" placeholder="Doe" required>
         </div>
       </div>
 
       <div class="form-field">
-        <label for="email">Email</label>
+        <label for="email">{{ 'auth.email' | translate }}</label>
         <input id="email" type="email" [(ngModel)]="email" name="email" placeholder="you@example.com" required>
       </div>
 
       <div class="form-field">
-        <label for="password">Password</label>
+        <label for="password">{{ 'auth.password' | translate }}</label>
         <input id="password" type="password" [(ngModel)]="password" name="password" placeholder="••••••••" required>
       </div>
 
-      <button type="submit" class="btn btn-primary">Sign up</button>
+      <button type="submit" class="btn btn-primary">{{ 'auth.signUp' | translate }}</button>
     </form>
     }
 
     @if (step === 2) {
     <form (ngSubmit)="onVerify()">
-      <p>We sent a verification code to <strong>{{ email }}</strong>. Enter it below.</p>
+      <p>{{ 'auth.verificationSentPrefix' | translate }} <strong>{{ email }}</strong>. {{ 'auth.verificationSentSuffix' | translate }}</p>
 
       @if (!expired) {
-        <p>Code expires in <strong>{{ timeDisplay }}</strong></p>
+        <p>{{ 'auth.codeExpiresIn' | translate }} <strong>{{ timeDisplay }}</strong></p>
       } @else {
-        <p>Your code has expired.</p>
+        <p>{{ 'auth.codeExpired' | translate }}</p>
       }
 
       <div class="form-field">
-        <label for="code">Verification code</label>
+        <label for="code">{{ 'auth.verificationCode' | translate }}</label>
         <input id="code" [(ngModel)]="code" name="code" placeholder="123456" required [disabled]="expired">
       </div>
 
-      <button type="submit" class="btn btn-primary" [disabled]="expired">Verify</button>
+      <button type="submit" class="btn btn-primary" [disabled]="expired">{{ 'auth.verify' | translate }}</button>
 
       @if (expired) {
-        <button type="button" class="btn btn-primary" (click)="resendCode()">Resend code</button>
+        <button type="button" class="btn btn-primary" (click)="resendCode()">{{ 'auth.resendCode' | translate }}</button>
       }
     </form>
     }
@@ -58,7 +58,7 @@
       <p style="color: #d33; margin-top: 10px;">{{ errorMessage }}</p>
     }
 
-    <div class="divider">or</div>
+    <div class="divider">{{ 'auth.or' | translate }}</div>
 
     <a class="btn-google" [href]="googleLoginUrl">
       <svg viewBox="0 0 48 48">
@@ -67,9 +67,9 @@
         <path fill="#4CAF50" d="M24 44c5.5 0 10.4-1.9 14.3-5.1l-6.6-5.6c-2 1.5-4.7 2.4-7.7 2.4-5.3 0-9.7-3.4-11.3-8.1l-6.6 5.1C9.6 39.6 16.2 44 24 44z"/>
         <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.2 5.7l6.6 5.6C41.4 36.4 44 30.8 44 24c0-1.3-.1-2.7-.4-3.5z"/>
       </svg>
-      Continue with Google
+      {{ 'auth.continueWithGoogle' | translate }}
     </a>
 
-    <p class="auth-footer">Already have an account? <a routerLink="/login">Log in</a></p>
+    <p class="auth-footer">{{ 'auth.alreadyHaveAccount' | translate }} <a routerLink="/login">{{ 'auth.logIn' | translate }}</a></p>
   </div>
 </div>

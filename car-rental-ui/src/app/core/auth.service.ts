@@ -8,7 +8,7 @@ export class AuthService {
 
   private baseUrl = 'http://159.69.122.189:8080/auth';
 
-  readonly googleLoginUrl = 'http://localhost:8083/oauth2/authorization/google';
+  readonly googleLoginUrl = 'http://159.69.122.189:8083/oauth2/authorization/google';
 
   constructor(private http: HttpClient) {}
 

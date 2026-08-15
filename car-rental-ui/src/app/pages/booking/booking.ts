@@ -4,14 +4,16 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CarService } from '../../core/car.service';
 import { Car } from '../../core/car.model';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ThemeToggleComponent } from '../../shared/theme-toggle/theme-toggle.component';
+import { LangSwitcherComponent } from '../../shared/lang-switcher/lang-switcher.component';
 import { AccountMenuComponent } from '../../shared/account-menu/account-menu.component';
 import { LogoComponent } from '../../shared/logo/logo.component';
 
 @Component({
   selector: 'app-booking',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, ThemeToggleComponent, AccountMenuComponent, LogoComponent],
+  imports: [CommonModule, FormsModule, RouterLink, ThemeToggleComponent, LangSwitcherComponent, AccountMenuComponent, LogoComponent, TranslatePipe],
   templateUrl: './booking.html',
   styleUrl: './booking.css',
 })
@@ -28,14 +30,20 @@ export class Booking implements OnInit {
   endDate = '';
   today = new Date().toISOString().split('T')[0];
 
-  constructor(private route: ActivatedRoute, private router: Router, private carService: CarService, private cdr: ChangeDetectorRef) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private carService: CarService,
+    private cdr: ChangeDetectorRef,
+    private translate: TranslateService
+  ) {}
 
   ngOnInit() {
     this.carId = Number(this.route.snapshot.paramMap.get('id'));
 
     if (!this.carId) {
       this.loading = false;
-      this.loadError = 'Invalid car link.';
+      this.loadError = this.translate.instant('booking.invalidLink');
       return;
     }
 
@@ -48,8 +56,8 @@ export class Booking implements OnInit {
       error: err => {
         this.loading = false;
         this.loadError = err.status === 404
-          ? 'This car no longer exists.'
-          : 'Could not load this car. Please make sure the services are running and try again.';
+          ? this.translate.instant('booking.carGone')
+          : this.translate.instant('booking.loadFailed');
         this.cdr.markForCheck();
       }
     });

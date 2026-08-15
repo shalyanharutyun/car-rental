@@ -1,192 +1,192 @@
 <div class="auth-page">
   <div class="auth-card">
     <app-logo class="auth-logo"></app-logo>
-    <h2>Add a Car</h2>
+    <h2>{{ 'addCar.title' | translate }}</h2>
 
     <form (ngSubmit)="onSubmit()">
       <div class="form-field">
-        <label for="brand">Brand</label>
+        <label for="brand">{{ 'addCar.brand' | translate }}</label>
         <input id="brand" [(ngModel)]="brand" name="brand" placeholder="BMW" required>
       </div>
 
       <div class="form-field">
-        <label for="model">Model</label>
+        <label for="model">{{ 'addCar.model' | translate }}</label>
         <input id="model" [(ngModel)]="model" name="model" placeholder="X5" required>
       </div>
 
       <div class="form-row">
         <div class="form-field">
-          <label for="year">Year</label>
+          <label for="year">{{ 'addCar.year' | translate }}</label>
           <input id="year" type="number" [(ngModel)]="year" name="year" placeholder="2024" required>
         </div>
 
         <div class="form-field">
-          <label for="vin">VIN</label>
+          <label for="vin">{{ 'addCar.vin' | translate }}</label>
           <input id="vin" [(ngModel)]="vin" name="vin" placeholder="WBA1234567890" required>
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-field">
-          <label for="price">Price</label>
+          <label for="price">{{ 'addCar.price' | translate }}</label>
           <input id="price" type="number" [(ngModel)]="price" name="price" placeholder="100" required>
         </div>
 
         <div class="form-field">
-          <label for="rentalPeriod">Period</label>
+          <label for="rentalPeriod">{{ 'addCar.period' | translate }}</label>
           <select id="rentalPeriod" [(ngModel)]="rentalPeriod" name="rentalPeriod">
-            <option value="DAILY">Per day</option>
-            <option value="MONTHLY">Per month</option>
+            <option value="DAILY">{{ 'addCar.perDay' | translate }}</option>
+            <option value="MONTHLY">{{ 'addCar.perMonth' | translate }}</option>
           </select>
         </div>
 
         <div class="form-field">
-          <label for="currency">Currency</label>
+          <label for="currency">{{ 'addCar.currency' | translate }}</label>
           <select id="currency" [(ngModel)]="currency" name="currency">
-            <option value="USD">Dollar (USD)</option>
-            <option value="AMD">Dram (AMD)</option>
-            <option value="RUB">Ruble (RUB)</option>
+            <option value="USD">{{ 'addCar.dollar' | translate }}</option>
+            <option value="AMD">{{ 'addCar.dram' | translate }}</option>
+            <option value="RUB">{{ 'addCar.ruble' | translate }}</option>
           </select>
         </div>
       </div>
 
       <div class="form-field">
-        <label for="fuelType">Fuel</label>
+        <label for="fuelType">{{ 'addCar.fuel' | translate }}</label>
         <select id="fuelType" [(ngModel)]="fuelType" name="fuelType">
-          <option value="PETROL">Petrol</option>
-          <option value="DIESEL">Diesel</option>
-          <option value="GAS">Gas</option>
+          <option value="PETROL">{{ 'addCar.petrol' | translate }}</option>
+          <option value="DIESEL">{{ 'addCar.diesel' | translate }}</option>
+          <option value="GAS">{{ 'addCar.gas' | translate }}</option>
         </select>
       </div>
 
       <div class="form-field">
-        <label for="description">Description</label>
+        <label for="description">{{ 'addCar.description' | translate }}</label>
         <textarea id="description" [(ngModel)]="description" name="description" rows="4"
-                  placeholder="Condition, options, mileage..."></textarea>
+                  placeholder="{{ 'addCar.descriptionPlaceholder' | translate }}"></textarea>
       </div>
 
-      <h3 class="form-section">Your Status</h3>
+      <h3 class="form-section">{{ 'addCar.yourStatus' | translate }}</h3>
       <div class="form-field">
-        <label for="sellerType">Status</label>
+        <label for="sellerType">{{ 'addCar.status' | translate }}</label>
         <select id="sellerType" [(ngModel)]="sellerType" name="sellerType">
-          <option value="OWNER">Owner</option>
-          <option value="DEALER">Dealer</option>
+          <option value="OWNER">{{ 'addCar.owner' | translate }}</option>
+          <option value="DEALER">{{ 'addCar.dealer' | translate }}</option>
         </select>
       </div>
 
       <div class="form-field">
-        <label for="phoneNumber">Contact Phone</label>
+        <label for="phoneNumber">{{ 'addCar.contactPhone' | translate }}</label>
         <input id="phoneNumber" type="tel" [(ngModel)]="phoneNumber" name="phoneNumber" placeholder="+374 XX XXXXXX" required>
       </div>
 
-      <h3 class="form-section">Vehicle Location</h3>
+      <h3 class="form-section">{{ 'addCar.vehicleLocation' | translate }}</h3>
       <div class="location-row">
         <div class="form-field">
-          <label for="region">Region</label>
+          <label for="region">{{ 'addCar.region' | translate }}</label>
           <select id="region" [(ngModel)]="region" name="region" (ngModelChange)="onRegionChange()" required>
-            <option value="" disabled>Select region</option>
+            <option value="" disabled>{{ 'addCar.selectRegion' | translate }}</option>
             <option *ngFor="let r of regions" [value]="r.name">{{ r.name }}</option>
           </select>
         </div>
 
         <div class="form-field" *ngIf="selectedRegion?.districts?.length">
-          <label for="district">City / Village</label>
+          <label for="district">{{ 'addCar.cityVillage' | translate }}</label>
           <select id="district" [(ngModel)]="district" name="district">
-            <option value="">Select city or village</option>
+            <option value="">{{ 'addCar.selectCityVillage' | translate }}</option>
             <option *ngFor="let d of selectedRegion?.districts" [value]="d">{{ d }}</option>
           </select>
         </div>
       </div>
 
-      <h3 class="form-section">Additional Information</h3>
+      <h3 class="form-section">{{ 'addCar.additionalInfo' | translate }}</h3>
       <div class="form-row">
         <div class="form-field">
-          <label for="mileage">Mileage</label>
+          <label for="mileage">{{ 'addCar.mileage' | translate }}</label>
           <input id="mileage" type="number" [(ngModel)]="mileage" name="mileage" placeholder="120000">
         </div>
 
         <div class="form-field">
-          <label for="currentCondition">Current Condition</label>
+          <label for="currentCondition">{{ 'addCar.currentCondition' | translate }}</label>
           <input id="currentCondition" [(ngModel)]="currentCondition" name="currentCondition" placeholder="Excellent">
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-field">
-          <label for="steeringWheel">Steering Wheel</label>
+          <label for="steeringWheel">{{ 'addCar.steeringWheel' | translate }}</label>
           <select id="steeringWheel" [(ngModel)]="steeringWheel" name="steeringWheel">
-            <option value="LEFT">Left</option>
-            <option value="RIGHT">Right</option>
+            <option value="LEFT">{{ 'addCar.left' | translate }}</option>
+            <option value="RIGHT">{{ 'addCar.right' | translate }}</option>
           </select>
         </div>
 
         <div class="form-field checkbox-field">
-          <label><input type="checkbox" [(ngModel)]="gasEquipment" name="gasEquipment"> Gas Equipment</label>
+          <label><input type="checkbox" [(ngModel)]="gasEquipment" name="gasEquipment"> {{ 'addCar.gasEquipment' | translate }}</label>
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-field checkbox-field">
-          <label><input type="checkbox" [(ngModel)]="clearedCustoms" name="clearedCustoms"> Cleared Customs</label>
+          <label><input type="checkbox" [(ngModel)]="clearedCustoms" name="clearedCustoms"> {{ 'addCar.clearedCustoms' | translate }}</label>
         </div>
 
         <div class="form-field checkbox-field">
-          <label><input type="checkbox" [(ngModel)]="exchangePossible" name="exchangePossible"> Exchange Possible</label>
+          <label><input type="checkbox" [(ngModel)]="exchangePossible" name="exchangePossible"> {{ 'addCar.exchangePossible' | translate }}</label>
         </div>
       </div>
 
-      <h3 class="form-section">Exterior</h3>
+      <h3 class="form-section">{{ 'addCar.exterior' | translate }}</h3>
       <div class="form-row">
         <div class="form-field">
-          <label for="color">Color</label>
+          <label for="color">{{ 'addCar.color' | translate }}</label>
           <input id="color" [(ngModel)]="color" name="color" placeholder="Black">
         </div>
 
         <div class="form-field">
-          <label for="wheelSize">Wheel Size</label>
+          <label for="wheelSize">{{ 'addCar.wheelSize' | translate }}</label>
           <input id="wheelSize" type="number" [(ngModel)]="wheelSize" name="wheelSize" placeholder="18">
         </div>
 
         <div class="form-field">
-          <label for="headlights">Headlights</label>
+          <label for="headlights">{{ 'addCar.headlights' | translate }}</label>
           <input id="headlights" [(ngModel)]="headlights" name="headlights" placeholder="LED">
         </div>
       </div>
 
-      <h3 class="form-section">Interior</h3>
+      <h3 class="form-section">{{ 'addCar.interior' | translate }}</h3>
       <div class="form-row">
         <div class="form-field">
-          <label for="interiorColor">Interior Color</label>
+          <label for="interiorColor">{{ 'addCar.interiorColor' | translate }}</label>
           <input id="interiorColor" [(ngModel)]="interiorColor" name="interiorColor" placeholder="Beige">
         </div>
 
         <div class="form-field">
-          <label for="interiorMaterial">Interior Material</label>
+          <label for="interiorMaterial">{{ 'addCar.interiorMaterial' | translate }}</label>
           <input id="interiorMaterial" [(ngModel)]="interiorMaterial" name="interiorMaterial" placeholder="Leather">
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-field checkbox-field">
-          <label><input type="checkbox" [(ngModel)]="sunroof" name="sunroof"> Sunroof</label>
+          <label><input type="checkbox" [(ngModel)]="sunroof" name="sunroof"> {{ 'addCar.sunroof' | translate }}</label>
         </div>
       </div>
 
       <div class="form-field">
-        <label for="comfort">Comfort</label>
+        <label for="comfort">{{ 'addCar.comfort' | translate }}</label>
         <textarea id="comfort" [(ngModel)]="comfort" name="comfort" rows="3"
-                  placeholder="Climate control, heated seats, parking sensors..."></textarea>
+                  placeholder="{{ 'addCar.comfortPlaceholder' | translate }}"></textarea>
       </div>
 
       <div class="form-field">
-        <label for="images">Images (at least 5)</label>
+        <label for="images">{{ 'addCar.images' | translate }}</label>
         <input id="images" type="file" accept="image/*" multiple (change)="onFileSelected($event)" required>
-        <small>{{ images.length }} selected</small>
+        <small>{{ 'addCar.imagesSelected' | translate:{ count: images.length } }}</small>
       </div>
 
-      <button type="submit" class="btn btn-primary">Add Car</button>
+      <button type="submit" class="btn btn-primary">{{ 'addCar.submit' | translate }}</button>
     </form>
 
-    <p class="auth-footer"><a routerLink="/cars">Back to car list</a></p>
+    <p class="auth-footer"><a routerLink="/cars">{{ 'addCar.backToList' | translate }}</a></p>
   </div>
 </div>

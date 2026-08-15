@@ -1,7 +1,8 @@
 <header class="app-header">
   <app-logo></app-logo>
   <div class="header-actions">
-    <a class="btn-logout" routerLink="/cars">Back to cars</a>
+    <a class="btn-logout" routerLink="/cars">{{ 'nav.backToCars' | translate }}</a>
+    <app-lang-switcher></app-lang-switcher>
     <app-theme-toggle></app-theme-toggle>
     <app-account-menu></app-account-menu>
   </div>
@@ -9,12 +10,12 @@
 
 <div class="notif-page">
   <div class="notif-head">
-    <h2>Notifications <span class="unread-pill" *ngIf="unreadCount > 0">{{ unreadCount }} new</span></h2>
-    <button class="btn-logout" *ngIf="unreadCount > 0" (click)="markAllRead()">Mark all read</button>
+    <h2>{{ 'notifications.title' | translate }} <span class="unread-pill" *ngIf="unreadCount > 0">{{ 'notifications.newCount' | translate:{ count: unreadCount } }}</span></h2>
+    <button class="btn-logout" *ngIf="unreadCount > 0" (click)="markAllRead()">{{ 'notifications.markAllRead' | translate }}</button>
   </div>
 
-  <p *ngIf="loading" class="empty">Loading…</p>
-  <p *ngIf="!loading && notifications.length === 0" class="empty">You have no notifications yet.</p>
+  <p *ngIf="loading" class="empty">{{ 'notifications.loading' | translate }}</p>
+  <p *ngIf="!loading && notifications.length === 0" class="empty">{{ 'notifications.empty' | translate }}</p>
 
   <div class="notif-list">
     <div class="notif-item" *ngFor="let n of notifications" [class.unread]="!n.read" (click)="markRead(n)">

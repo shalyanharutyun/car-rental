@@ -1,15 +1,16 @@
 <header class="app-header">
   <app-logo></app-logo>
   <div class="header-actions">
-    <button type="button" class="nav-pill" (click)="whyChoose.show()">Why choose MyRide</button>
+    <button type="button" class="nav-pill" (click)="whyChoose.show()">{{ 'nav.whyChoose' | translate }}</button>
     <ng-container *ngIf="isLoggedIn">
-      <a class="bell" routerLink="/notifications" title="Notifications">
+      <a class="bell" routerLink="/notifications" title="{{ 'notifications.title' | translate }}">
         🔔
         <span class="bell-badge" *ngIf="unread > 0">{{ unread }}</span>
       </a>
-      <a class="nav-pill" routerLink="/cars/mine">My Cars</a>
+      <a class="nav-pill" routerLink="/cars/mine">{{ 'nav.myCars' | translate }}</a>
     </ng-container>
-    <a class="nav-pill nav-pill-solid" routerLink="/cars/add">+ Add Car</a>
+    <a class="nav-pill nav-pill-solid" routerLink="/cars/add">{{ 'nav.addCar' | translate }}</a>
+    <app-lang-switcher></app-lang-switcher>
     <app-theme-toggle></app-theme-toggle>
     <app-account-menu></app-account-menu>
   </div>
@@ -17,80 +18,80 @@
 
 <section class="hero">
   <div class="hero-inner">
-    <h1 class="hero-title">Find your perfect ride</h1>
-    <p class="hero-subtitle">Hundreds of cars across Armenia. Book in minutes, drive in style.</p>
+    <h1 class="hero-title">{{ 'hero.title' | translate }}</h1>
+    <p class="hero-subtitle">{{ 'hero.subtitle' | translate }}</p>
   </div>
 </section>
 
 <div class="cars-page">
   <div class="filter-bar filter-bar-floating">
     <div class="filter-field">
-      <label for="filterSearch">Search</label>
-      <input type="text" id="filterSearch" placeholder="Brand or model" [(ngModel)]="filterSearch" (ngModelChange)="onSearchChange()">
+      <label for="filterSearch">{{ 'filter.search' | translate }}</label>
+      <input type="text" id="filterSearch" placeholder="{{ 'filter.searchPlaceholder' | translate }}" [(ngModel)]="filterSearch" (ngModelChange)="onSearchChange()">
     </div>
 
     <div class="filter-field">
-      <label for="filterYearFrom">Year from</label>
+      <label for="filterYearFrom">{{ 'filter.yearFrom' | translate }}</label>
       <select id="filterYearFrom" [(ngModel)]="filterYearFrom" (ngModelChange)="applyFilters()">
-        <option [ngValue]="null">Any</option>
+        <option [ngValue]="null">{{ 'filter.any' | translate }}</option>
         <option *ngFor="let y of years" [ngValue]="y">{{ y }}</option>
       </select>
     </div>
 
     <div class="filter-field">
-      <label for="filterYearTo">Year to</label>
+      <label for="filterYearTo">{{ 'filter.yearTo' | translate }}</label>
       <select id="filterYearTo" [(ngModel)]="filterYearTo" (ngModelChange)="applyFilters()">
-        <option [ngValue]="null">Any</option>
+        <option [ngValue]="null">{{ 'filter.any' | translate }}</option>
         <option *ngFor="let y of years" [ngValue]="y">{{ y }}</option>
       </select>
     </div>
 
     <div class="filter-field">
-      <label for="filterRegion">Region</label>
+      <label for="filterRegion">{{ 'filter.region' | translate }}</label>
       <select id="filterRegion" [(ngModel)]="filterRegion" (ngModelChange)="onFilterRegionChange()">
-        <option value="">All regions</option>
+        <option value="">{{ 'filter.allRegions' | translate }}</option>
         <option *ngFor="let r of regions" [value]="r.name">{{ r.name }}</option>
       </select>
     </div>
 
     <div class="filter-field" *ngIf="selectedFilterRegion?.districts?.length">
-      <label for="filterDistrict">City / Village</label>
+      <label for="filterDistrict">{{ 'filter.cityVillage' | translate }}</label>
       <select id="filterDistrict" [(ngModel)]="filterDistrict" (ngModelChange)="applyFilters()">
-        <option value="">All cities / villages</option>
+        <option value="">{{ 'filter.allCitiesVillages' | translate }}</option>
         <option *ngFor="let d of selectedFilterRegion?.districts" [value]="d">{{ d }}</option>
       </select>
     </div>
 
-    <button type="button" class="filter-clear" (click)="clearFilters()">Clear filters</button>
+    <button type="button" class="filter-clear" (click)="clearFilters()">{{ 'filter.clearFilters' | translate }}</button>
   </div>
 
-  <h2 class="section-heading">Available Cars</h2>
+  <h2 class="section-heading">{{ 'cars.heading' | translate }}</h2>
 
   <div class="cars-grid">
     <a class="car-card" *ngFor="let car of cars" [routerLink]="['/cars', car.id]">
       <div class="car-thumb">
         <img *ngIf="car.images && car.images.length" [src]="imageBaseUrl + car.images[0]" alt="{{ car.brand }} {{ car.model }}">
-        <span class="status-badge available" *ngIf="car.available !== false">Available</span>
-        <span class="status-badge rented" *ngIf="car.available === false">Rented</span>
+        <span class="status-badge available" *ngIf="car.available !== false">{{ 'cars.available' | translate }}</span>
+        <span class="status-badge rented" *ngIf="car.available === false">{{ 'cars.rented' | translate }}</span>
       </div>
       <h3>{{ car.brand }} {{ car.model }}</h3>
       <p class="car-year">{{ car.year }}</p>
-      <p class="car-price">{{ car.price }} {{ car.currency }} / {{ periodLabel(car) }}</p>
+      <p class="car-price">{{ car.price }} {{ car.currency }} / {{ 'cars.' + periodLabel(car) | translate }}</p>
       <p class="rented-until" *ngIf="car.available === false && car.rentedUntil">
-        Free on {{ car.rentedUntil }}
+        {{ 'cars.freeOn' | translate:{ date: car.rentedUntil } }}
       </p>
-      <span class="btn-details">View details</span>
+      <span class="btn-details">{{ 'cars.viewDetails' | translate }}</span>
     </a>
   </div>
 
   <div class="pagination" *ngIf="totalPages > 0">
-    <button type="button" class="page-btn" [disabled]="page === 0" (click)="goToPage(page - 1)">‹ Prev</button>
+    <button type="button" class="page-btn" [disabled]="page === 0" (click)="goToPage(page - 1)">‹ {{ 'cars.prev' | translate }}</button>
     <ng-container *ngFor="let p of pageItems">
       <span class="page-ellipsis" *ngIf="p === '...'">…</span>
       <button type="button" class="page-btn" *ngIf="p !== '...'"
               [class.active]="p === page" (click)="goToPage($any(p))">{{ +p + 1 }}</button>
     </ng-container>
-    <button type="button" class="page-btn" [disabled]="page === totalPages - 1" (click)="goToPage(page + 1)">Next ›</button>
+    <button type="button" class="page-btn" [disabled]="page === totalPages - 1" (click)="goToPage(page + 1)">{{ 'cars.next' | translate }} ›</button>
   </div>
 </div>
 

@@ -5,14 +5,16 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CarService } from '../../core/car.service';
 import { BookingService, PaymentMethod } from '../../core/booking.service';
 import { Car } from '../../core/car.model';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ThemeToggleComponent } from '../../shared/theme-toggle/theme-toggle.component';
+import { LangSwitcherComponent } from '../../shared/lang-switcher/lang-switcher.component';
 import { AccountMenuComponent } from '../../shared/account-menu/account-menu.component';
 import { LogoComponent } from '../../shared/logo/logo.component';
 
 @Component({
   selector: 'app-payment',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, ThemeToggleComponent, AccountMenuComponent, LogoComponent],
+  imports: [CommonModule, FormsModule, RouterLink, ThemeToggleComponent, LangSwitcherComponent, AccountMenuComponent, LogoComponent, TranslatePipe],
   templateUrl: './payment.html',
   styleUrl: './payment.css',
 })
@@ -41,7 +43,8 @@ export class Payment implements OnInit {
     private route: ActivatedRoute,
     private carService: CarService,
     private bookingService: BookingService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private translate: TranslateService
   ) {}
 
   ngOnInit() {
@@ -51,7 +54,7 @@ export class Payment implements OnInit {
 
     if (!this.carId || !this.startDate || !this.endDate) {
       this.loading = false;
-      this.loadError = 'Missing rental dates. Please start the booking again.';
+      this.loadError = this.translate.instant('payment.missingDates');
       return;
     }
 
@@ -64,8 +67,8 @@ export class Payment implements OnInit {
       error: err => {
         this.loading = false;
         this.loadError = err.status === 404
-          ? 'This car no longer exists.'
-          : 'Could not load this car. Please make sure the services are running and try again.';
+          ? this.translate.instant('payment.carGone')
+          : this.translate.instant('payment.loadFailed');
         this.cdr.markForCheck();
       }
     });
@@ -89,7 +92,9 @@ export class Payment implements OnInit {
 
   get payLabel(): string {
     const amount = this.total + ' ' + (this.car?.currency ?? '');
-    return this.paymentMethod === 'CASH' ? 'Confirm booking' : 'Pay ' + amount;
+    return this.paymentMethod === 'CASH'
+      ? this.translate.instant('payment.confirmBooking')
+      : this.translate.instant('payment.payAmount', { amount });
   }
 
   get formValid(): boolean {
@@ -123,7 +128,7 @@ export class Payment implements OnInit {
       error: err => {
         this.processing = false;
         this.error = err?.error?.message
-          || 'Payment could not be processed. Please try again.';
+          || this.translate.instant('payment.payFailed');
         this.cdr.markForCheck();
       }
     });
