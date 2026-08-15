@@ -98,7 +98,9 @@ jobs:
           script: |
             cd "$DEPLOY_PATH"
             git pull --ff-only
-            echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GHCR_ACTOR" --password-stdin
+            if [ -n "$GHCR_TOKEN" ]; then
+              echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GHCR_ACTOR" --password-stdin
+            fi
             docker compose pull
             docker compose up -d
             docker image prune -f
