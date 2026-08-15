@@ -65,10 +65,10 @@ services:
       - "8083:8083"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/auth_db
-      MAIL_USERNAME: ${MAIL_USERNAME}
-      MAIL_PASSWORD: ${MAIL_PASSWORD}
-      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
-      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      MAIL_USERNAME: ${MAIL_USERNAME:-CHANGE_ME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD:-CHANGE_ME}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-CHANGE_ME}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-CHANGE_ME}
 
   car-service:
     image: ghcr.io/shalyanharutyun/car-rental-car-service:latest
@@ -147,8 +147,8 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/notification_db
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
-      MAIL_USERNAME: ${MAIL_USERNAME}
-      MAIL_PASSWORD: ${MAIL_PASSWORD}
+      MAIL_USERNAME: ${MAIL_USERNAME:-CHANGE_ME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD:-CHANGE_ME}
 
   api-gateway:
     image: ghcr.io/shalyanharutyun/car-rental-api-gateway:latest
@@ -186,4 +186,3 @@ services:
 
 volumes:
   postgres-data:
-
