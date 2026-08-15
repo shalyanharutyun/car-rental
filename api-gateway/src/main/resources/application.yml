@@ -33,6 +33,11 @@ spring:
           predicates:
             - Path=/oauth2/**
 
+        - id: auth-oauth2-callback
+          uri: ${AUTH_SERVICE_URL:http://localhost:8083}
+          predicates:
+            - Path=/login/oauth2/**
+
         - id: car-service
           uri: ${CAR_SERVICE_URL:http://localhost:8081}
           predicates:
