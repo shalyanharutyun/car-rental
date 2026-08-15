@@ -33,6 +33,8 @@ export class CarsComponent implements OnInit {
   filterYearTo: number | null = null;
   filterRegion = '';
   filterDistrict = '';
+  filterSearch = '';
+  private searchDebounce: ReturnType<typeof setTimeout> | undefined;
 
   constructor(
     private carService: CarService,
@@ -67,11 +69,17 @@ export class CarsComponent implements OnInit {
     this.loadCars();
   }
 
+  onSearchChange() {
+    clearTimeout(this.searchDebounce);
+    this.searchDebounce = setTimeout(() => this.applyFilters(), 300);
+  }
+
   clearFilters() {
     this.filterYearFrom = null;
     this.filterYearTo = null;
     this.filterRegion = '';
     this.filterDistrict = '';
+    this.filterSearch = '';
     this.applyFilters();
   }
 
@@ -83,7 +91,7 @@ export class CarsComponent implements OnInit {
   }
 
   loadCars() {
-    this.carService.getCars(this.page, this.pageSize, this.filterYearFrom, this.filterYearTo, this.filterLocation).subscribe(result => {
+    this.carService.getCars(this.page, this.pageSize, this.filterYearFrom, this.filterYearTo, this.filterLocation, this.filterSearch).subscribe(result => {
       this.cars = result.content;
       this.totalPages = result.totalPages;
       this.cdr.markForCheck();

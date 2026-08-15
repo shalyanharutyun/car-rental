@@ -14,7 +14,7 @@ export class CarService {
 
   constructor(private http: HttpClient) {}
 
-  getCars(page = 0, size = 12, yearFrom?: number | null, yearTo?: number | null, location?: string | null): Observable<Page<Car>> {
+  getCars(page = 0, size = 12, yearFrom?: number | null, yearTo?: number | null, location?: string | null, search?: string | null): Observable<Page<Car>> {
     const params: Record<string, string | number> = { page, size };
     if (yearFrom) {
       params['yearFrom'] = yearFrom;
@@ -24,6 +24,9 @@ export class CarService {
     }
     if (location) {
       params['location'] = location;
+    }
+    if (search) {
+      params['search'] = search;
     }
     return this.http.get<Page<Car>>(this.baseUrl, { params });
   }

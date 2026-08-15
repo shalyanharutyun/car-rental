@@ -25,6 +25,11 @@
 <div class="cars-page">
   <div class="filter-bar filter-bar-floating">
     <div class="filter-field">
+      <label for="filterSearch">Search</label>
+      <input type="text" id="filterSearch" placeholder="Brand or model" [(ngModel)]="filterSearch" (ngModelChange)="onSearchChange()">
+    </div>
+
+    <div class="filter-field">
       <label for="filterYearFrom">Year from</label>
       <select id="filterYearFrom" [(ngModel)]="filterYearFrom" (ngModelChange)="applyFilters()">
         <option [ngValue]="null">Any</option>
