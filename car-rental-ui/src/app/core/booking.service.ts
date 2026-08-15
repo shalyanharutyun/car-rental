@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { apiUrl } from './api.config';
 
 export type PaymentMethod = 'CARD' | 'CASH';
 
@@ -28,7 +29,7 @@ export interface NewBooking {
 })
 export class BookingService {
 
-  private baseUrl = 'http://159.69.122.189:8080/bookings';
+  private baseUrl = apiUrl('/bookings');
 
   constructor(private http: HttpClient) {}
 

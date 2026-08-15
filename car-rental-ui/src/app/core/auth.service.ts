@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { apiUrl } from './api.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private baseUrl = 'http://159.69.122.189:8080/auth';
+  private baseUrl = apiUrl('/auth');
 
-  readonly googleLoginUrl = 'http://159.69.122.189:8083/oauth2/authorization/google';
+  readonly googleLoginUrl = apiUrl('/oauth2/authorization/google');
 
   constructor(private http: HttpClient) {}
 

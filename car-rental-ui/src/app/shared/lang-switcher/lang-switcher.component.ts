@@ -1,11 +1,11 @@
-import { Component, ElementRef, HostListener, inject, signal } from '@angular/core';
+﻿import { Component, ElementRef, HostListener, inject, signal } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { DEFAULT_LANG, SUPPORTED_LANGS, SupportedLang, saveLang } from '../../core/i18n';
 
 const LANG_LABELS: Record<SupportedLang, string> = {
   en: 'EN',
-  hy: 'ՀԱՅ',
-  ru: 'РУС',
+  hy: 'Հայ',
+  ru: 'Рус',
 };
 
 @Component({
@@ -54,3 +54,4 @@ export class LangSwitcherComponent {
     }
   }
 }
+

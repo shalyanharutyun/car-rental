@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Car, Page } from './car.model';
+import { apiUrl } from './api.config';
 
 export type NewCar = Omit<Car, 'id' | 'images' | 'available' | 'ownerEmail'>;
 
@@ -10,7 +11,7 @@ export type NewCar = Omit<Car, 'id' | 'images' | 'available' | 'ownerEmail'>;
 })
 export class CarService {
 
-  private baseUrl = 'http://159.69.122.189:8080/cars';
+  private baseUrl = apiUrl('/cars');
 
   constructor(private http: HttpClient) {}
 

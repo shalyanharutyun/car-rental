@@ -9,6 +9,7 @@ import { ThemeToggleComponent } from '../../shared/theme-toggle/theme-toggle.com
 import { LangSwitcherComponent } from '../../shared/lang-switcher/lang-switcher.component';
 import { AccountMenuComponent } from '../../shared/account-menu/account-menu.component';
 import { LogoComponent } from '../../shared/logo/logo.component';
+import { API_BASE_URL } from '../../core/api.config';
 
 @Component({
   selector: 'app-my-cars',
@@ -19,7 +20,7 @@ import { LogoComponent } from '../../shared/logo/logo.component';
 export class MyCarsComponent implements OnInit {
 
   cars$!: Observable<Car[]>;
-  imageBaseUrl = 'http://159.69.122.189:8080';
+  imageBaseUrl = API_BASE_URL;
 
   constructor(private carService: CarService, private cdr: ChangeDetectorRef, private translate: TranslateService) {}
 

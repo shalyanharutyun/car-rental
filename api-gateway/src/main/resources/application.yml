@@ -10,7 +10,10 @@ spring:
       globalcors:
         cors-configurations:
           '[/**]':
-            allowedOrigins: "http://159.69.122.189"
+            allowedOrigins:
+              - "http://159.69.122.189"
+              - "http://localhost:4200"
+              - "http://127.0.0.1:4200"
             allowedMethods:
               - GET
               - POST
@@ -24,6 +27,11 @@ spring:
           uri: ${AUTH_SERVICE_URL:http://localhost:8083}
           predicates:
             - Path=/auth/**
+
+        - id: auth-oauth2
+          uri: ${AUTH_SERVICE_URL:http://localhost:8083}
+          predicates:
+            - Path=/oauth2/**
 
         - id: car-service
           uri: ${CAR_SERVICE_URL:http://localhost:8081}
