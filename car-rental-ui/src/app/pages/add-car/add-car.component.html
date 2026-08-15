@@ -1,0 +1,192 @@
+<div class="auth-page">
+  <div class="auth-card">
+    <app-logo class="auth-logo"></app-logo>
+    <h2>Add a Car</h2>
+
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-field">
+        <label for="brand">Brand</label>
+        <input id="brand" [(ngModel)]="brand" name="brand" placeholder="BMW" required>
+      </div>
+
+      <div class="form-field">
+        <label for="model">Model</label>
+        <input id="model" [(ngModel)]="model" name="model" placeholder="X5" required>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label for="year">Year</label>
+          <input id="year" type="number" [(ngModel)]="year" name="year" placeholder="2024" required>
+        </div>
+
+        <div class="form-field">
+          <label for="vin">VIN</label>
+          <input id="vin" [(ngModel)]="vin" name="vin" placeholder="WBA1234567890" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label for="price">Price</label>
+          <input id="price" type="number" [(ngModel)]="price" name="price" placeholder="100" required>
+        </div>
+
+        <div class="form-field">
+          <label for="rentalPeriod">Period</label>
+          <select id="rentalPeriod" [(ngModel)]="rentalPeriod" name="rentalPeriod">
+            <option value="DAILY">Per day</option>
+            <option value="MONTHLY">Per month</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label for="currency">Currency</label>
+          <select id="currency" [(ngModel)]="currency" name="currency">
+            <option value="USD">Dollar (USD)</option>
+            <option value="AMD">Dram (AMD)</option>
+            <option value="RUB">Ruble (RUB)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label for="fuelType">Fuel</label>
+        <select id="fuelType" [(ngModel)]="fuelType" name="fuelType">
+          <option value="PETROL">Petrol</option>
+          <option value="DIESEL">Diesel</option>
+          <option value="GAS">Gas</option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label for="description">Description</label>
+        <textarea id="description" [(ngModel)]="description" name="description" rows="4"
+                  placeholder="Condition, options, mileage..."></textarea>
+      </div>
+
+      <h3 class="form-section">Your Status</h3>
+      <div class="form-field">
+        <label for="sellerType">Status</label>
+        <select id="sellerType" [(ngModel)]="sellerType" name="sellerType">
+          <option value="OWNER">Owner</option>
+          <option value="DEALER">Dealer</option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label for="phoneNumber">Contact Phone</label>
+        <input id="phoneNumber" type="tel" [(ngModel)]="phoneNumber" name="phoneNumber" placeholder="+374 XX XXXXXX" required>
+      </div>
+
+      <h3 class="form-section">Vehicle Location</h3>
+      <div class="location-row">
+        <div class="form-field">
+          <label for="region">Region</label>
+          <select id="region" [(ngModel)]="region" name="region" (ngModelChange)="onRegionChange()" required>
+            <option value="" disabled>Select region</option>
+            <option *ngFor="let r of regions" [value]="r.name">{{ r.name }}</option>
+          </select>
+        </div>
+
+        <div class="form-field" *ngIf="selectedRegion?.districts?.length">
+          <label for="district">City / Village</label>
+          <select id="district" [(ngModel)]="district" name="district">
+            <option value="">Select city or village</option>
+            <option *ngFor="let d of selectedRegion?.districts" [value]="d">{{ d }}</option>
+          </select>
+        </div>
+      </div>
+
+      <h3 class="form-section">Additional Information</h3>
+      <div class="form-row">
+        <div class="form-field">
+          <label for="mileage">Mileage</label>
+          <input id="mileage" type="number" [(ngModel)]="mileage" name="mileage" placeholder="120000">
+        </div>
+
+        <div class="form-field">
+          <label for="currentCondition">Current Condition</label>
+          <input id="currentCondition" [(ngModel)]="currentCondition" name="currentCondition" placeholder="Excellent">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label for="steeringWheel">Steering Wheel</label>
+          <select id="steeringWheel" [(ngModel)]="steeringWheel" name="steeringWheel">
+            <option value="LEFT">Left</option>
+            <option value="RIGHT">Right</option>
+          </select>
+        </div>
+
+        <div class="form-field checkbox-field">
+          <label><input type="checkbox" [(ngModel)]="gasEquipment" name="gasEquipment"> Gas Equipment</label>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field checkbox-field">
+          <label><input type="checkbox" [(ngModel)]="clearedCustoms" name="clearedCustoms"> Cleared Customs</label>
+        </div>
+
+        <div class="form-field checkbox-field">
+          <label><input type="checkbox" [(ngModel)]="exchangePossible" name="exchangePossible"> Exchange Possible</label>
+        </div>
+      </div>
+
+      <h3 class="form-section">Exterior</h3>
+      <div class="form-row">
+        <div class="form-field">
+          <label for="color">Color</label>
+          <input id="color" [(ngModel)]="color" name="color" placeholder="Black">
+        </div>
+
+        <div class="form-field">
+          <label for="wheelSize">Wheel Size</label>
+          <input id="wheelSize" type="number" [(ngModel)]="wheelSize" name="wheelSize" placeholder="18">
+        </div>
+
+        <div class="form-field">
+          <label for="headlights">Headlights</label>
+          <input id="headlights" [(ngModel)]="headlights" name="headlights" placeholder="LED">
+        </div>
+      </div>
+
+      <h3 class="form-section">Interior</h3>
+      <div class="form-row">
+        <div class="form-field">
+          <label for="interiorColor">Interior Color</label>
+          <input id="interiorColor" [(ngModel)]="interiorColor" name="interiorColor" placeholder="Beige">
+        </div>
+
+        <div class="form-field">
+          <label for="interiorMaterial">Interior Material</label>
+          <input id="interiorMaterial" [(ngModel)]="interiorMaterial" name="interiorMaterial" placeholder="Leather">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field checkbox-field">
+          <label><input type="checkbox" [(ngModel)]="sunroof" name="sunroof"> Sunroof</label>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label for="comfort">Comfort</label>
+        <textarea id="comfort" [(ngModel)]="comfort" name="comfort" rows="3"
+                  placeholder="Climate control, heated seats, parking sensors..."></textarea>
+      </div>
+
+      <div class="form-field">
+        <label for="images">Images (at least 5)</label>
+        <input id="images" type="file" accept="image/*" multiple (change)="onFileSelected($event)" required>
+        <small>{{ images.length }} selected</small>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Add Car</button>
+    </form>
+
+    <p class="auth-footer"><a routerLink="/cars">Back to car list</a></p>
+  </div>
+</div>

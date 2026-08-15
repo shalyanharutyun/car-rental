@@ -1,0 +1,32 @@
+<header class="app-header">
+  <app-logo></app-logo>
+  <div class="header-actions">
+    <a class="btn-logout" routerLink="/cars">Back to cars</a>
+    <app-theme-toggle></app-theme-toggle>
+    <app-account-menu></app-account-menu>
+  </div>
+</header>
+
+<div class="notif-page">
+  <div class="notif-head">
+    <h2>Notifications <span class="unread-pill" *ngIf="unreadCount > 0">{{ unreadCount }} new</span></h2>
+    <button class="btn-logout" *ngIf="unreadCount > 0" (click)="markAllRead()">Mark all read</button>
+  </div>
+
+  <p *ngIf="loading" class="empty">Loading…</p>
+  <p *ngIf="!loading && notifications.length === 0" class="empty">You have no notifications yet.</p>
+
+  <div class="notif-list">
+    <div class="notif-item" *ngFor="let n of notifications" [class.unread]="!n.read" (click)="markRead(n)">
+      <div class="notif-icon">{{ icon(n.type) }}</div>
+      <div class="notif-body">
+        <div class="notif-title">
+          {{ n.title }}
+          <span class="dot" *ngIf="!n.read"></span>
+        </div>
+        <p class="notif-msg">{{ n.message }}</p>
+        <p class="notif-time">{{ n.createdAt | date:'medium' }}</p>
+      </div>
+    </div>
+  </div>
+</div>

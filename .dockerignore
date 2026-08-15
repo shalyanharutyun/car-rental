@@ -1,0 +1,8 @@
+.git
+.idea
+.claude
+**/target
+**/node_modules
+**/dist
+uploads
+*.md

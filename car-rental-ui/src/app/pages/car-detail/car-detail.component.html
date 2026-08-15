@@ -1,0 +1,95 @@
+<header class="app-header">
+  <app-logo></app-logo>
+  <div class="header-actions">
+    <a class="btn-logout" routerLink="/cars">Back to cars</a>
+    <app-theme-toggle></app-theme-toggle>
+    <app-account-menu></app-account-menu>
+  </div>
+</header>
+
+<div class="cars-page" *ngIf="car$ | async as c">
+  <h2>{{ c.brand }} {{ c.model }} <span class="car-year">({{ c.year }})</span></h2>
+
+  <p class="car-price">{{ c.price }} {{ c.currency }} / {{ periodLabel(c) }}</p>
+
+  <div class="rent-cta">
+    <a class="btn btn-primary rent-btn" *ngIf="c.available !== false" [routerLink]="['/booking', c.id]">Rent this car</a>
+    <div class="rented-banner" *ngIf="c.available === false">
+      🚗 Rented<span *ngIf="c.rentedUntil"> · available on {{ c.rentedUntil }}</span>
+    </div>
+  </div>
+
+  <div class="car-detail-specs">
+    <p><strong>VIN:</strong> {{ c.vin }}</p>
+    <p><strong>Fuel:</strong> {{ c.fuelType }}</p>
+    <p><strong>Rental:</strong> {{ c.rentalPeriod }}</p>
+    <p *ngIf="c.sellerType"><strong>Status:</strong> {{ c.sellerType }}</p>
+    <p *ngIf="c.location"><strong>Location:</strong> {{ c.location }}</p>
+    <p *ngIf="c.description"><strong>Description:</strong> {{ c.description }}</p>
+    <p *ngIf="c.ownerEmail"><strong>Added by:</strong> {{ c.ownerEmail }}</p>
+    <p *ngIf="c.phoneNumber"><strong>Contact Phone:</strong> {{ c.phoneNumber }}</p>
+  </div>
+
+  <div class="image-gallery" *ngIf="c.images && c.images.length">
+    <button type="button" class="gallery-nav prev" *ngIf="c.images.length > 1" (click)="prevImage(c)">&lsaquo;</button>
+    <img class="gallery-image" [src]="imageBaseUrl + c.images[currentImageIndex]" alt="{{ c.brand }} {{ c.model }}">
+    <button type="button" class="gallery-nav next" *ngIf="c.images.length > 1" (click)="nextImage(c)">&rsaquo;</button>
+    <div class="gallery-counter" *ngIf="c.images.length > 1">{{ currentImageIndex + 1 }} / {{ c.images.length }}</div>
+    <div class="gallery-dots" *ngIf="c.images.length > 1">
+      <span class="dot" *ngFor="let img of c.images; let i = index"
+            [class.active]="i === currentImageIndex" (click)="goToImage(i)"></span>
+    </div>
+  </div>
+
+  <div class="car-info-section">
+    <h3>Additional Information</h3>
+    <ul class="car-info-list">
+      <li *ngIf="c.mileage != null"><span>Mileage</span><strong>{{ c.mileage }}</strong></li>
+      <li *ngIf="c.currentCondition"><span>Current Condition</span><strong>{{ c.currentCondition }}</strong></li>
+      <li *ngIf="c.gasEquipment != null"><span>Gas Equipment</span><strong>{{ c.gasEquipment ? 'Yes' : 'No' }}</strong></li>
+      <li *ngIf="c.steeringWheel"><span>Steering Wheel</span><strong>{{ c.steeringWheel }}</strong></li>
+      <li *ngIf="c.clearedCustoms != null"><span>Cleared Customs</span><strong>{{ c.clearedCustoms ? 'Yes' : 'No' }}</strong></li>
+      <li *ngIf="c.exchangePossible != null"><span>Exchange Possible</span><strong>{{ c.exchangePossible ? 'Yes' : 'No' }}</strong></li>
+    </ul>
+  </div>
+
+  <div class="car-info-section">
+    <h3>Exterior</h3>
+    <ul class="car-info-list">
+      <li *ngIf="c.color"><span>Color</span><strong>{{ c.color }}</strong></li>
+      <li *ngIf="c.wheelSize != null"><span>Wheel Size</span><strong>{{ c.wheelSize }}</strong></li>
+      <li *ngIf="c.headlights"><span>Headlights</span><strong>{{ c.headlights }}</strong></li>
+    </ul>
+  </div>
+
+  <div class="car-info-section">
+    <h3>Interior</h3>
+    <ul class="car-info-list">
+      <li *ngIf="c.interiorColor"><span>Interior Color</span><strong>{{ c.interiorColor }}</strong></li>
+      <li *ngIf="c.interiorMaterial"><span>Interior Material</span><strong>{{ c.interiorMaterial }}</strong></li>
+      <li *ngIf="c.sunroof != null"><span>Sunroof</span><strong>{{ c.sunroof ? 'Yes' : 'No' }}</strong></li>
+      <li *ngIf="c.comfort"><span>Comfort</span><strong>{{ c.comfort }}</strong></li>
+    </ul>
+  </div>
+
+  <div class="car-rules">
+    <h3>Rules of the road</h3>
+    <ul>
+      <li>
+        <strong>No smoking allowed</strong>
+        <span>Smoking in any vehicle will result in a $150 fine</span>
+      </li>
+      <li>
+        <strong>Keep the vehicle tidy</strong>
+        <span>Unreasonably dirty vehicles may result in a $150 fine</span>
+      </li>
+      <li>
+        <strong>Refuel the vehicle</strong>
+        <span>Missing fuel may result in an additional fee</span>
+      </li>
+      <li>
+        <strong>No off-roading</strong>
+      </li>
+    </ul>
+  </div>
+</div>
